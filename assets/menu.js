@@ -1,11 +1,11 @@
 // Set this URL when the ordering app is ready.
 const ORDER_URL = '';
 const orderLink = document.querySelector('[data-order-link]');
-if (ORDER_URL) {
+if (orderLink && ORDER_URL) {
   orderLink.href = ORDER_URL;
   orderLink.target = '_blank';
   orderLink.rel = 'noopener noreferrer';
-} else {
+} else if (orderLink) {
   orderLink.addEventListener('click', event => {
     event.preventDefault();
     const note = document.getElementById('order-note');
@@ -41,48 +41,3 @@ document.querySelectorAll('.menu-card').forEach(card => {
 });
 
 
-const making = document.querySelector('.making');
-const steps = [...document.querySelectorAll('.making-step')];
-const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
-const stage = document.createElement('div');
-stage.className = 'making-stage';
-const stepContainer = making.querySelector('.making-steps');
-stepContainer.before(stage);
-stage.append(stepContainer);
-stage.prepend(making.querySelector('.making-header'));
-const progress = document.createElement('div');
-progress.className = 'making-progress';
-progress.setAttribute('aria-hidden', 'true');
-progress.innerHTML = '<span></span>'.repeat(4);
-stage.append(progress);
-let scheduled = false;
-function drawMaking() {
-  scheduled = false;
-  const animated = !motionPreference.matches;
-  making.classList.toggle('scroll-making', animated);
-  if (!animated) {
-    steps.forEach(step => { step.style.cssText = ''; step.removeAttribute('aria-hidden'); });
-    return;
-  }
-  const distance = making.offsetHeight - stage.offsetHeight;
-  const progressValue = Math.max(0, Math.min(1, -making.getBoundingClientRect().top / Math.max(1, distance)));
-  const position = progressValue * 3;
-  const active = Math.round(position);
-  steps.forEach((step, index) => {
-    const offset = index - position;
-    step.style.opacity = String(Math.max(0, 1 - Math.abs(offset) * 1.8));
-    step.style.transform = `translateY(${offset * 70}px) scale(${1 - Math.min(Math.abs(offset), 1) * .08})`;
-    step.style.pointerEvents = index === active ? 'auto' : 'none';
-    step.setAttribute('aria-hidden', String(index !== active));
-    const art = step.querySelector('.step-art');
-    art.style.transform = `rotate(${offset * -12}deg) translateY(${offset * -25}px)`;
-  });
-  [...progress.children].forEach((dot, index) => dot.classList.toggle('active', index === active));
-}
-function scheduleMaking() {
-  if (!scheduled) { scheduled = true; requestAnimationFrame(drawMaking); }
-}
-addEventListener('scroll', scheduleMaking, {passive:true});
-addEventListener('resize', scheduleMaking);
-motionPreference.addEventListener('change', drawMaking);
-drawMaking();

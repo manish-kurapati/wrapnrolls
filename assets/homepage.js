@@ -1,31 +1,39 @@
 (() => {
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
- const closing=document.querySelector('.home-closing');
+ const stage=document.querySelector('.closing-stage');
  const foods=[...document.querySelectorAll('.closing-food')];
- const hero=document.querySelector('.home-hero');
- const heroDrift=document.querySelector('.hero-food-drift');
- const flights=[[-650,-360,-35], [650,-420,30], [-600,380,-40], [650,350,40]];
- const finalAngles=[-14,13,-10,13];
- let current=0,target=0,active=false,raf=0;
- const clamp=n=>Math.max(0,Math.min(1,n));
- function read(){
-  const rect=closing.getBoundingClientRect();
-  target=clamp((-rect.top+innerHeight*.22)/(closing.offsetHeight-innerHeight+innerHeight*.22));
-  if(!reduce.matches&&heroDrift)heroDrift.style.setProperty('--hero-lift',Math.min(65,Math.max(0,-hero.getBoundingClientRect().top*.07))+'px');
- }
- function render(value){
-  const ease=1-Math.pow(1-clamp(value*1.35),3);
+ const angles=[-14,13,-10,13],drift=[-75,80,-40,45];
+ let visible=false,animations=[];
+ function buildFlights(){
+  animations.forEach(a=>a.cancel());animations=[];
   foods.forEach((node,i)=>{
-   const [x,y,rotation]=flights[i];
-   node.style.transform=`translate3d(${x*(1-ease)}px,${y*(1-ease)}px,0) rotate(${rotation*(1-ease)+finalAngles[i]*ease}deg) scale(${.65+.35*ease})`;
-   node.style.opacity=String(clamp(ease*1.6));
+   node.style.opacity=reduce.matches?'1':'';
+   node.style.transform=reduce.matches?'rotate('+angles[i]+'deg)':'';
+   if(reduce.matches)return;
+   const bottom=innerHeight+node.offsetHeight;
+   const transform=(x,y,r,scale)=>'translate3d('+x+'px,'+y+'px,0) rotate('+r+'deg) scale('+scale+')';
+   const animation=node.animate([
+    {offset:0,opacity:0,transform:transform(drift[i],bottom,angles[i]-28,.85),easing:'cubic-bezier(.12,.6,.3,1)'},
+    {offset:.1,opacity:1,transform:transform(drift[i]*.65,bottom*.55,angles[i]-16,.92),easing:'cubic-bezier(.16,1,.3,1)'},
+    {offset:.43,opacity:1,transform:transform(-drift[i]*.3,-48,angles[i]+6,1.03),easing:'cubic-bezier(.55,0,.85,.45)'},
+    {offset:.88,opacity:1,transform:transform(-drift[i],bottom*.85,angles[i]+35,.9),easing:'ease-in'},
+    {offset:.94,opacity:0,transform:transform(-drift[i],bottom,angles[i]+42,.85)},
+    {offset:1,opacity:0,transform:transform(-drift[i],bottom,angles[i]+42,.85)}
+   ],{duration:4600,delay:i*380,iterations:Infinity,fill:'both'});
+   if(!visible)animation.pause();
+   animations.push(animation);
   });
  }
- function tick(){raf=0;if(!active||reduce.matches)return;current+=(target-current)*.11;if(Math.abs(target-current)<.0001)current=target;render(current);raf=requestAnimationFrame(tick);}
- const observer=new IntersectionObserver(entries=>{active=entries[0].isIntersecting;if(active&&!reduce.matches){read();if(!raf)raf=requestAnimationFrame(tick)}},{rootMargin:'150px'});observer.observe(closing);
- function applyMotion(){if(reduce.matches){render(1);heroDrift?.style.removeProperty('--hero-lift')}else{read();render(current);if(active&&!raf)raf=requestAnimationFrame(tick)}}
- addEventListener('scroll',read,{passive:true});addEventListener('resize',read);reduce.addEventListener('change',applyMotion);applyMotion();
- const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');reveal.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll('.home-reveal').forEach(node=>reveal.observe(node));
+ if(stage){
+  new IntersectionObserver(entries=>{
+   visible=entries[0].isIntersecting;
+   animations.forEach(a=>visible?a.play():a.pause());
+  },{threshold:.1}).observe(stage);
+  reduce.addEventListener('change',buildFlights);
+  buildFlights();
+ }
+ const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');reveal.unobserve(entry.target);}}),{threshold:.12});
+ document.querySelectorAll('.home-reveal').forEach(node=>reveal.observe(node));
 })();
 
 // Section entrances and scroll-linked depth, separate from the opening animation.

@@ -1,0 +1,20 @@
+﻿/* Compact category headings replace the full hero on Sides and Sodas. */
+.compact-page-header{background:#ed5428}
+.compact-page-header + .food-category{padding-top:0}
+.compact-page-header + .food-category .category-title-scene{height:270px}
+.compact-soda-heading{background:#fff0d2;color:#ed5428;overflow:hidden}
+.compact-soda-heading .soda-header{position:relative;inset:auto}
+.compact-soda-heading .soda-header .brand{background:transparent;border:0;box-shadow:none;padding:0;border-radius:0}
+.soda-heading-stage{position:relative;isolation:isolate;display:grid;place-items:center;min-height:280px;max-width:1100px;margin:0 auto}
+.soda-heading-stage h1{position:relative;z-index:1;margin:0;font:400 clamp(55px,8vw,110px)/1 'Lilita One',sans-serif;letter-spacing:-.035em;color:#ed5428;text-align:center;pointer-events:none}
+.soda-heading-drinks{position:absolute;inset:0;pointer-events:none}
+.heading-drink{position:absolute;width:95px;height:135px;display:block;filter:drop-shadow(0 9px 6px #42191f15)}
+.heading-drink .drink-mini{width:100%;height:100%;animation:heading-drink-drift 5s ease-in-out infinite;transform-origin:center}
+.heading-drink-0{left:6%;top:14%;rotate:-16deg}.heading-drink-1{left:27%;top:1%;rotate:12deg}.heading-drink-2{right:27%;bottom:0;rotate:-12deg}.heading-drink-3{right:6%;top:14%;rotate:16deg}
+.heading-drink-1 .drink-mini{animation-delay:-1.25s}.heading-drink-2 .drink-mini{animation-delay:-2.5s}.heading-drink-3 .drink-mini{animation-delay:-3.75s}
+.soda-page .dirty-menu{padding-top:28px}
+@keyframes heading-drink-drift{0%,100%{transform:translateY(4px) rotate(-3deg)}50%{transform:translateY(-8px) rotate(3deg)}}
+@media(max-width:700px){.soda-heading-stage{min-height:245px}.heading-drink{width:63px;height:90px}.heading-drink-0{left:3%;top:19%}.heading-drink-1{left:25%;top:0}.heading-drink-2{right:25%;bottom:0}.heading-drink-3{right:3%;top:19%}.compact-page-header + .food-category .category-title-scene{height:245px}}
+@media(prefers-reduced-motion:reduce){.heading-drink .drink-mini{animation:none}}
+/* Keep the menu introduction clear of the decorative wave. */
+.soda-page .dirty-menu{padding-top:65px}

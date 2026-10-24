@@ -113,3 +113,9 @@ body.homepage{background:#fff0d2;color:#42191f;overflow-x:hidden}body.homepage.l
 .home-more-art .more-burger{transform:translateY(var(--scroll-shift,0px)) rotate(-10deg)}
 .home-more-art .more-fries{transform:translateY(var(--scroll-shift,0px)) rotate(13deg)}
 @media(prefers-reduced-motion:reduce){.scroll-heading .scroll-word,.flavour-shot.scroll-pop,.home-more-art.scroll-pop{opacity:1!important;transform:none!important;transition:none!important}.hero-copy,.hero-wordmark,.belief-photo{translate:none}.home-more-art .more-burger{transform:rotate(-10deg)}.home-more-art .more-fries{transform:rotate(13deg)}}
+/* The closing food flies up once; no pinned, scroll-scrubbed section. */
+.homepage .home-closing{height:100svh;min-height:600px}
+.homepage .closing-stage{position:relative;height:100%;min-height:600px}
+.homepage .closing-food{opacity:0}
+@media(max-width:600px){.homepage .home-closing,.homepage .closing-stage{min-height:560px}}
+@media(prefers-reduced-motion:reduce){.homepage .closing-food{opacity:1}}
