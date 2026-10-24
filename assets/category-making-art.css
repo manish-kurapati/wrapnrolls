@@ -1,0 +1,6 @@
+﻿.category-build-stage{overflow:visible;display:grid;place-items:center}
+.category-making-art{display:block;width:min(56vw,790px);height:100%;max-height:86svh;overflow:visible}
+.burger-making-art{width:min(45vw,635px)}
+.category-making-art [data-build]{opacity:0;transform-box:view-box;transform-origin:center}
+.category-build-stage.is-still [data-build]{opacity:1!important;transform:none!important}
+@media(max-width:600px){.category-build-stage{height:390px;max-height:52svh;overflow:hidden}.category-making-art{width:112%;height:112%;max-height:none}.burger-making-art{width:95%;height:105%}}

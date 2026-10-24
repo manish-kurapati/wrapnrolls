@@ -1,0 +1,8 @@
+﻿/* Slow steam around the finished food; the assembled ingredients stay still. */
+.food-steam{fill:none;stroke:#fff0d2;stroke-width:8;stroke-linecap:round;filter:blur(1.6px);pointer-events:none}
+.steam-wisp{opacity:0;animation:food-steam-rise 5.5s ease-in-out infinite;transform-box:view-box;transform-origin:center}
+.wisp-two{animation-delay:-1.8s;stroke-width:10}.wisp-three{animation-delay:-3.6s;stroke-width:6}
+.heat-flecks{opacity:.4;animation:food-flecks-glow 5s ease-in-out infinite}
+@keyframes food-steam-rise{0%{opacity:0;transform:translateY(28px) scaleX(.92)}30%{opacity:.28}65%{opacity:.15}100%{opacity:0;transform:translateY(-36px) scaleX(1.08)}}
+@keyframes food-flecks-glow{0%,100%{opacity:.25}50%{opacity:.65}}
+@media(prefers-reduced-motion:reduce){.steam-wisp{animation:none;opacity:.13}.heat-flecks{animation:none;opacity:.35}}

@@ -1,0 +1,24 @@
+html{scroll-behavior:smooth}header{border-bottom:0!important}nav a{display:inline-block!important}nav a[aria-current=page]{color:#fff0d2}
+.food-category{padding:25px 6vw 75px;background:#ed5428;color:#fff0d2;overflow:hidden}
+.category-title-scene{position:relative;display:grid;place-items:center;height:280px;isolation:isolate;max-width:650px;margin:auto}
+.category-heading{font:400 clamp(52px,7vw,88px)/1.15 'Lilita One','Arial Rounded MT Bold',sans-serif;letter-spacing:0;color:#fff0d2;margin:0;display:flex;position:relative;z-index:1;filter:drop-shadow(0 4px 0 #42191f);transform:rotate(-4deg)}
+.category-heading span{display:inline-block;animation:food-letter-bob 3.2s ease-in-out infinite;animation-delay:calc(var(--i,0)*-.3s)}
+.category-heading span:nth-child(2){--i:1}.category-heading span:nth-child(3){--i:2}.category-heading span:nth-child(4){--i:3}.category-heading span:nth-child(5){--i:4}.category-heading span:nth-child(6){--i:5}.category-heading span:nth-child(7){--i:6}
+.category-fillings{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:540px;height:230px;pointer-events:none}
+.category-piece{position:absolute;width:65px;height:65px;pointer-events:auto;--tilt:-15deg;animation:food-ingredient-bob 5s ease-in-out infinite}
+.category-piece svg{width:100%;height:100%;display:block}.piece-0{left:8px;top:45px}.piece-1{left:130px;top:4px;animation-delay:-2s;--tilt:15deg}.piece-2{right:125px;top:8px;animation-delay:-1s}.piece-3{left:100px;bottom:8px;animation-delay:-3s;--tilt:25deg}.piece-4{right:110px;bottom:3px;animation-delay:-1.5s;--tilt:10deg}.piece-5{right:0;top:65px;animation-delay:-2.5s;--tilt:20deg}
+.category-note,.category-coming{text-align:center;font-size:14px;line-height:1.7;margin:0 auto 14px;max-width:500px}.category-coming{font-size:12px;opacity:.8}
+.category-making{max-width:1000px;margin:55px auto 0;background:#fff0d2;color:#42191f;padding:35px;border-radius:24px}.category-eyebrow{text-transform:uppercase;letter-spacing:2px;font-size:10px;font-weight:bold}.category-making h3{font:400 34px/1.1 'Lilita One',sans-serif;margin:12px 0 30px}.category-making ol{display:grid;grid-template-columns:repeat(3,1fr);list-style:none;padding:0;margin:0;gap:30px}.category-making li>span{display:block;color:#ed5428;font:22px 'Lilita One',sans-serif;margin-bottom:12px}.category-making strong{font:22px 'Lilita One',sans-serif}.category-making p{font-size:13px;line-height:1.8}
+.sodas-reserved{min-height:65svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:55px 25px;color:#fff0d2}.sodas-reserved h2{font:400 70px 'Lilita One',sans-serif;margin:20px 0}.sodas-reserved p{font-size:14px}
+.filling{animation:food-ingredient-bob 5s ease-in-out infinite;--tilt:var(--turn,0deg)}.filling:nth-child(2n){animation-delay:-2s}.filling:nth-child(3n){animation-delay:-3.5s}
+.filling:hover,.category-piece:hover{animation-name:food-ingredient-hover;animation-duration:1.6s}
+.wraps-heading:hover,.category-heading:hover{animation:food-heading-float 2s ease-in-out infinite}
+.wraps-heading:hover span,.category-heading:hover span{animation-name:food-letter-bob;animation-duration:1.6s}
+@keyframes food-ingredient-bob{0%,100%{transform:translateY(4px) rotate(var(--tilt))}50%{transform:translateY(-7px) rotate(calc(var(--tilt) + 7deg))}}
+@keyframes food-ingredient-hover{0%,100%{transform:translateY(-3px) rotate(calc(var(--tilt) - 8deg)) scale(1.05)}50%{transform:translateY(-20px) rotate(calc(var(--tilt) + 12deg)) scale(1.1)}}
+@keyframes food-letter-bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-8px) rotate(4deg)}}
+@keyframes food-heading-float{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-10px) rotate(0deg)}}
+.route-page main{min-height:70svh}.route-page .wraps-intro{padding-top:70px}.route-page .brand{flex-shrink:0}
+@media(max-width:700px){header{gap:12px;padding:12px 5vw}nav{gap:14px;font-size:11px}.brand{width:85px}.category-title-scene{height:245px}.category-heading{font-size:clamp(42px,10vw,66px)}.category-fillings{width:340px;height:200px}.category-piece{width:47px;height:47px}.piece-0{left:0;top:57px}.piece-1{left:80px;top:5px}.piece-2{right:70px;top:10px}.piece-3{left:62px;bottom:6px}.piece-4{right:60px;bottom:4px}.piece-5{right:0;top:65px}.category-making{padding:25px}.category-making ol{grid-template-columns:1fr;gap:15px}.category-making h3{font-size:30px}.category-note{font-size:13px}.food-category{padding-bottom:45px}}
+@media(max-width:370px){nav{gap:9px;font-size:10px}.brand{width:70px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.filling,.category-piece,.wraps-heading:hover,.category-heading:hover,.wraps-heading span,.category-heading span{animation:none!important}}

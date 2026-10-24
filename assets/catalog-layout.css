@@ -1,0 +1,14 @@
+/* The category navigation stays centered independently of the logo. */
+header:not(.custom-header){position:relative;display:grid;grid-template-columns:1fr auto 1fr;gap:20px;border:0!important;isolation:isolate}
+header>.brand{grid-column:1;justify-self:start}header>nav{grid-column:2;justify-self:center;display:flex;gap:5px;padding:7px;background:linear-gradient(130deg,#fff0d23d,#fff0d214);border:1px solid #fff0d255;border-radius:50px;box-shadow:0 8px 30px #42191f12,inset 0 1px 0 #ffffff45;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+header>nav a{display:block!important;padding:11px 20px;border-radius:30px;font-size:12px;color:#42191f;transition:background .25s,color .25s,transform .25s}
+header>nav a:hover{background:#fff0d240;transform:translateY(-2px)}header>nav a[aria-current=page]{background:#fff0d2;color:#42191f;box-shadow:0 3px 10px #42191f12}
+.category-page .food-category{padding-bottom:15px}.category-page .category-title-scene{height:280px}.category-page .menu-intro{margin-bottom:30px}
+.category-subheading{max-width:1060px;margin:40px auto 20px;font:400 31px 'Lilita One',sans-serif;color:#fff0d2}
+.category-menu-note{max-width:700px;text-align:center;margin:25px auto;font-size:12px;line-height:1.8}
+.text-menu-list{max-width:1060px;margin:24px auto;display:grid;grid-template-columns:1fr 1fr;gap:0 35px}.text-menu-item{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:20px 0;border-bottom:1px dashed #fff0d255}.text-menu-item h3{font:400 23px/1.2 'Lilita One',sans-serif;margin:0 0 8px}.text-menu-item p{font-size:12px;line-height:1.8;margin:0;max-width:340px}.text-menu-price{white-space:nowrap;font:24px 'Lilita One',sans-serif;color:#fff0d2}
+@media(max-width:700px){.text-menu-list{grid-template-columns:1fr;gap:0}.text-menu-item h3{font-size:21px}.text-menu-price{font-size:23px}}
+.home-reserved{min-height:calc(100svh - 108px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 25px;color:#fff0d2}.home-reserved h1{font:400 clamp(42px,7vw,80px) 'Lilita One',sans-serif;letter-spacing:-1px;text-transform:none;margin:15px 0}.home-reserved p{font-size:14px;line-height:1.8}.home-reserved a{margin-top:20px;padding:14px 24px;border-radius:30px;background:#42191f;color:#fff0d2;font-size:13px}
+@media(max-width:700px){header:not(.custom-header){height:125px;grid-template-columns:1fr;padding:8px 5vw 12px;gap:3px}header>.brand{grid-column:1;justify-self:center;width:75px;height:48px}header>nav{grid-column:1;grid-row:2;padding:5px;gap:3px;max-width:100%}header>nav a{padding:8px 15px;font-size:11px}.home-reserved{min-height:calc(100svh - 125px)}}
+@media(max-width:360px){header>nav a{padding:8px 12px}}
+@media(prefers-reduced-motion:reduce){header>nav a{transition:none}}

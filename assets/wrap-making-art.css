@@ -1,0 +1,13 @@
+﻿.wrap-element-stage{overflow:visible;display:grid;place-items:center}
+.wrap-making-art{display:block;width:min(55vw,790px);height:100%;max-height:80svh;overflow:visible}
+.wrap-making-art .wrap-drop,.wrap-sauce,.wrap-fold,.wrap-rolled-scene,.wrap-knife,.wrap-finished-scene{opacity:0}
+.wrap-making-art .wrap-flat-scene{transform-origin:320px 430px}
+.wrap-making-art .wrap-drop{transform-origin:320px 427px}
+.wrap-making-art .wrap-finished-scene{transform-origin:320px 350px}
+.wrap-making-art .sauce-line{stroke-dasharray:1;stroke-dashoffset:1}
+.wrap-element-stage.is-still .wrap-flat-scene,.wrap-element-stage.is-still .wrap-rolled-scene,.wrap-element-stage.is-still .wrap-knife{opacity:0!important}
+.wrap-element-stage.is-still .wrap-finished-scene{opacity:1!important;transform:none!important}
+@media(max-width:600px){.wrap-element-stage{height:360px;max-height:48svh;overflow:hidden}.wrap-making-art{width:100%;height:100%;max-height:none}}
+/* A little more presence for the wrap illustration. */
+.wrap-making-art{width:min(61vw,880px);max-height:88svh}
+@media(max-width:600px){.wrap-element-stage{height:395px;max-height:53svh}.wrap-making-art{width:112%;max-width:none;height:112%;max-height:none}}
