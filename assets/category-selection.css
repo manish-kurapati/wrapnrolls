@@ -1,0 +1,40 @@
+/* Compact category menus with patterned space for the final product PNGs. */
+[data-menu-favourites][hidden],.category-menu[hidden]{display:none}
+.sides-choices{margin-bottom:52px;padding-top:28px}
+.category-menu{max-width:1000px;margin:0 auto;padding-bottom:24px}
+.category-menu-heading{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:24px}
+.category-menu-heading h2{margin:0;font-size:clamp(25px,3vw,38px);line-height:1.2;color:var(--brand-cream)}
+.category-menu-heading h2:focus{outline:none}
+.category-menu-back{border:1px solid var(--brand-cream);border-radius:30px;padding:10px 16px;background:transparent;color:var(--brand-cream);font:700 12px/1.5 'Roc Grotesk',Arial,sans-serif;cursor:pointer}
+.category-menu-back:hover{background:var(--brand-cream);color:var(--brand-ink)}
+.category-menu-back:focus-visible{outline:3px solid var(--brand-yellow);outline-offset:4px}
+.category-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:stretch}
+.category-card{position:relative;isolation:isolate;display:flex;flex-direction:column;min-width:0;background:#fff;border-radius:22px;overflow:hidden;color:var(--brand-ink)}
+.category-card::before,.menu-section .menu-picture::before{content:'';position:absolute;inset:0;z-index:-1;background:url('client-brand/yellow-pattern.png') center top/230px auto repeat;opacity:.42;pointer-events:none}
+.category-card-art{aspect-ratio:1.35/1;flex-shrink:0}
+.category-card-info{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex:1;min-height:94px;padding:18px 20px 22px;background:#fffffff2}
+.category-card-info h3{font:700 18px/1.4 'Roc Grotesk',Arial,sans-serif;color:var(--brand-red);margin:0;min-width:0;overflow-wrap:break-word}
+.category-card-price{font:700 18px/1.4 Arial,Helvetica,sans-serif;white-space:nowrap;font-variant-numeric:tabular-nums}
+@media(max-width:900px){.category-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
+@media(max-width:600px){
+ .category-card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+ .category-card{border-radius:16px}
+ .category-card::before,.menu-section .menu-picture::before{background-size:160px auto}
+ .category-card-art{aspect-ratio:1.2/1}
+ .category-card-info{flex-direction:column;gap:10px;min-height:114px;padding:13px 12px 16px}
+ .category-card-info h3{font-size:14px;line-height:1.4}
+ .category-card-price{font-size:16px;margin-top:auto}
+ .category-menu-heading{align-items:flex-start;gap:14px;flex-direction:column;margin-bottom:22px}
+ .category-menu-back{font-size:12px;padding:9px 14px}
+ .sides-choices{margin-bottom:42px}
+}
+/* Favourites use the same quiet pattern while final food PNGs are pending. */
+.menu-section .menu-grid{max-width:1000px;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.menu-section .menu-card{grid-column:auto;border:0;border-radius:22px;overflow:hidden;background:#fff;box-shadow:none;transform:none}
+.menu-section .menu-picture{position:relative;isolation:isolate;aspect-ratio:1.35/1;min-height:0;background:#fff}
+.menu-section .menu-card-body{min-height:0;padding:18px 20px 22px;background:#fff}
+.menu-section .menu-card h3{font:700 18px/1.4 'Roc Grotesk',Arial,sans-serif;color:var(--brand-red);margin:0 0 12px}
+.menu-section .menu-card-body p{display:none}
+.menu-section .menu-price{font-size:18px;margin:0}
+@media(max-width:900px){.menu-section .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}}
+@media(max-width:600px){.menu-section .menu-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.menu-section .menu-card{border-radius:16px}.menu-section .menu-picture{aspect-ratio:1.2/1}.menu-section .menu-card-body{padding:13px 12px 16px}.menu-section .menu-card h3{font-size:14px}.menu-section .menu-price{font-size:16px}}

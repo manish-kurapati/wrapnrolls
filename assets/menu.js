@@ -15,7 +15,7 @@ if (orderLink && ORDER_URL) {
 }
 // Offer prices appear only when a valid discount has been configured.
 document.querySelectorAll('.menu-card').forEach(card => {
-  const slug = card.querySelector('img').getAttribute('src').split('/').pop().replace('.png', '');
+  const slug = card.dataset.productSlug || card.querySelector('img')?.getAttribute('src').split('/').pop().replace('.png', '');
   const offer = (window.WRAP_OFFERS || {})[slug];
   const price = card.querySelector('.menu-price');
   const regular = Number(price.textContent.replace('$', ''));

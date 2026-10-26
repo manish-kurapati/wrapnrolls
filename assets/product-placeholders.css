@@ -1,0 +1,6 @@
+/* Product photographs are pending; keep their layout space with quiet linework. */
+.homepage img.product-pattern-placeholder{background:#fff url('client-brand/yellow-pattern.png') center/220px auto repeat;opacity:.42;border-radius:22px;filter:none;object-fit:contain}
+.homepage .brand-snack:has(.product-pattern-placeholder){display:none}
+.homepage .belief-photo:has(.product-pattern-placeholder){background:#fff;box-shadow:none}
+.homepage .flavour-shot .product-pattern-placeholder{padding:0;background-size:180px auto}
+@media(max-width:600px){.homepage img.product-pattern-placeholder{border-radius:16px;background-size:160px auto}}

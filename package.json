@@ -1,0 +1,14 @@
+{
+  "name": "wrapnrolls",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build": "esbuild src/page-waves.js --bundle --minify --format=iife --outfile=assets/page-waves.js"
+  },
+  "dependencies": {
+    "framer-motion": "^14.6.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}
