@@ -26,7 +26,7 @@
 .tomato-one{right:28%;top:7%;animation-delay:-1s;--turn:25deg}.tomato-two{left:29%;bottom:6%;animation-delay:-4s;--turn:-20deg}
 .filling-onion{width:85px;height:47px;border:7px solid #bb7cb6;border-radius:50%;box-shadow:inset 0 0 0 3px #efd1e9,0 0 0 3px #efd1e9}
 .onion-one{left:8%;bottom:23%;--turn:35deg;animation-delay:-2s}.onion-two{right:9%;top:18%;--turn:-35deg;animation-delay:-4s}
-.filling-wrap{font:90px/1 'Segoe UI Emoji','Apple Color Emoji',sans-serif;filter:drop-shadow(0 5px 0 #42191f18)}
+.filling-wrap{font:90px/1 Arial,sans-serif;filter:drop-shadow(0 5px 0 #42191f18)}
 .wrap-one{left:5%;top:8%;--turn:-20deg;animation-delay:-1.5s}.wrap-two{right:5%;bottom:5%;--turn:25deg;animation-delay:-3.5s}
 @keyframes bubble-bop{0%,65%,100%{transform:translateY(0) rotate(-3deg) scale(1)}30%{transform:translateY(-12px) rotate(5deg) scale(1.04,.96)}}
 @keyframes filling-float{0%,100%{transform:translateY(0) rotate(var(--turn))}50%{transform:translateY(-18px) rotate(calc(var(--turn) + 14deg))}}
