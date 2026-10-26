@@ -1,0 +1,1 @@
+Brand fonts supplied by the user. Nority is used for display headings, Roc Grotesk regular and bold for readable body text, navigation and prices, and Extra Wide is retained for display accents. The files are demo editions. Replace with licensed webfonts before commercial publication.

@@ -5,7 +5,7 @@
  const path = 'M0 90C240 210 400-35 680 75S1100 215 1440 60V220H0Z';
  function overlay(covered) {
   const root=document.createElement('div');root.className='route-wave-overlay';root.setAttribute('aria-hidden','true');
-  const layers=['#f9bc46','#42191f','#ed5428'].map(colour=>{
+  const layers=['#f5b106','#42191f','#d13e26'].map(colour=>{
    const layer=document.createElement('div');layer.className='route-wave-layer';layer.style.setProperty('--wave-colour',colour);
    layer.innerHTML=`<svg viewBox="0 0 1440 220" preserveAspectRatio="none"><path d="${path}"/></svg><svg class="route-wave-tail" viewBox="0 0 1440 220" preserveAspectRatio="none"><path d="${path}"/></svg>`;
    if(covered)layer.style.transform='translateY(0)';root.append(layer);return layer;

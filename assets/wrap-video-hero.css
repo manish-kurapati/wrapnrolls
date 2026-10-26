@@ -1,16 +1,16 @@
 ﻿/* Video-led wrap hero, with short copy on either side. */
-.category-page .landing-frame{height:100svh;min-height:740px;background:#ed5428}
-.wrap-video-hero{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,1.3fr) minmax(0,1fr);align-items:center;gap:2vw;padding:20px 4vw 45px;color:#fff0d2;overflow:hidden}
+.category-page .landing-frame{height:100svh;min-height:740px;background:#d13e26}
+.wrap-video-hero{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,1.3fr) minmax(0,1fr);align-items:center;gap:2vw;padding:20px 4vw 45px;color:#ffefd2;overflow:hidden}
 .wrap-hero-copy{position:relative;z-index:1;min-width:0}.wrap-copy-right{text-align:right}
-.wrap-hero-eyebrow{display:block;font:700 9px/1.6 Arial,sans-serif;letter-spacing:2px;margin-bottom:20px;color:#fff0d2}
-.wrap-hero-copy h1,.wrap-hero-copy h2{font:400 clamp(38px,4.4vw,74px)/.99 'Lilita One',sans-serif;letter-spacing:-.035em;margin:0 0 22px;color:#fff0d2;text-transform:none}
-.wrap-hero-copy p{font:13px/1.8 Arial,sans-serif;margin:0 0 27px;color:#fff0d2}
+.wrap-hero-eyebrow{display:block;font:700 9px/1.6 'Roc Grotesk',Arial,sans-serif;letter-spacing:2px;margin-bottom:20px;color:#ffefd2}
+.wrap-hero-copy h1,.wrap-hero-copy h2{font:400 clamp(38px,4.4vw,74px)/.99 Nority,sans-serif;letter-spacing:-.035em;margin:0 0 22px;color:#ffefd2;text-transform:none}
+.wrap-hero-copy p{font:13px/1.8 'Roc Grotesk',Arial,sans-serif;margin:0 0 27px;color:#ffefd2}
 .wrap-hero-film{height:100%;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:24px}
 .wrap-hero-film video{width:100%;height:100%;max-height:76svh;object-fit:contain;display:block}
-.wrap-video-cta{display:inline-flex;align-items:center;gap:24px;border-radius:32px;background:#fff0d2;color:#791e0c;padding:16px 21px;font:700 12px Arial,sans-serif;text-decoration:none}
-.wrap-hero-secondary{display:inline-flex;gap:20px;align-items:center;border-bottom:1px solid #fff0d280;padding:10px 0;color:#fff0d2;font:700 12px Arial,sans-serif;text-decoration:none}
-.wrap-video-cta:hover{background:#791e0c;color:#fff0d2}.wrap-hero-secondary:hover{border-color:#fff0d2}
-.wrap-video-hero a:focus-visible{outline:3px solid #fff0d2;outline-offset:6px}
+.wrap-video-cta{display:inline-flex;align-items:center;gap:24px;border-radius:32px;background:#ffefd2;color:#791e0c;padding:16px 21px;font:700 12px 'Roc Grotesk',Arial,sans-serif;text-decoration:none}
+.wrap-hero-secondary{display:inline-flex;gap:20px;align-items:center;border-bottom:1px solid #ffefd280;padding:10px 0;color:#ffefd2;font:700 12px 'Roc Grotesk',Arial,sans-serif;text-decoration:none}
+.wrap-video-cta:hover{background:#791e0c;color:#ffefd2}.wrap-hero-secondary:hover{border-color:#ffefd2}
+.wrap-video-hero a:focus-visible{outline:3px solid #ffefd2;outline-offset:6px}
 @media(max-width:900px) and (min-width:601px){.wrap-video-hero{gap:15px;padding-left:3vw;padding-right:3vw;grid-template-columns:1fr 1.2fr 1fr}.wrap-hero-copy h1,.wrap-hero-copy h2{font-size:4.6vw}.wrap-hero-copy p{font-size:11px}.wrap-hero-eyebrow{font-size:8px;letter-spacing:1px}.wrap-video-cta{font-size:10px;padding:13px 15px;gap:12px}}
 @media(max-width:600px){.category-page .landing-frame{height:auto;min-height:100svh}.wrap-video-hero{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;gap:22px;padding:28px 6vw 40px}.wrap-copy-left{grid-column:1/-1;text-align:center}.wrap-hero-film{grid-column:1/-1;grid-row:2;height:400px;max-height:52svh;border-radius:18px}.wrap-hero-film video{max-height:52svh}.wrap-copy-right{grid-column:1/-1;text-align:center}.wrap-hero-copy h1,.wrap-hero-copy h2{font-size:44px;margin-bottom:14px}.wrap-hero-eyebrow{font-size:8px;margin-bottom:12px}.wrap-hero-copy p{font-size:12px;margin-bottom:17px}.wrap-copy-right h2{font-size:32px}.wrap-copy-right h2 br{display:none}.wrap-copy-right .wrap-hero-eyebrow{display:none}}
 /* Let the supplied orange footage fill the banner, with copy framing its center. */

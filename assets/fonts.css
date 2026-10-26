@@ -1,1 +1,7 @@
-@font-face{font-family:'Lilita One';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/lilita-one.ttf') format('truetype')}
+@font-face{font-family:Nority;src:url('fonts/nority.otf') format('opentype');font-weight:400;font-display:swap;unicode-range:U+0000-0023,U+0026-10FFFF}
+@font-face{font-family:'Roc Grotesk';src:url('fonts/roc-grotesk-regular.otf') format('opentype');font-weight:400 500;font-display:swap;unicode-range:U+0000-0023,U+0026-10FFFF}
+@font-face{font-family:'Roc Grotesk';src:url('fonts/roc-grotesk-bold.otf') format('opentype');font-weight:600 900;font-display:swap;unicode-range:U+0000-0023,U+0026-10FFFF}
+@font-face{font-family:Roll;src:url('fonts/roc-grotesk-bold.otf') format('opentype');font-display:swap;unicode-range:U+0000-0023,U+0026-10FFFF}
+@font-face{font-family:'Lilita One';src:url('fonts/nority.otf') format('opentype');font-display:swap;unicode-range:U+0000-0023,U+0026-10FFFF}
+
+@font-face{font-family:'Roc Grotesk Extra Wide';src:url('fonts/roc-grotesk-extra-wide-bold.otf') format('opentype');font-weight:700;font-display:swap;unicode-range:U+0000-0023,U+0026-10FFFF}

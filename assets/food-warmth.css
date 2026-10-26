@@ -1,5 +1,5 @@
 ﻿/* Slow steam around the finished food; the assembled ingredients stay still. */
-.food-steam{fill:none;stroke:#fff0d2;stroke-width:8;stroke-linecap:round;filter:blur(1.6px);pointer-events:none}
+.food-steam{fill:none;stroke:#ffefd2;stroke-width:8;stroke-linecap:round;filter:blur(1.6px);pointer-events:none}
 .steam-wisp{opacity:0;animation:food-steam-rise 5.5s ease-in-out infinite;transform-box:view-box;transform-origin:center}
 .wisp-two{animation-delay:-1.8s;stroke-width:10}.wisp-three{animation-delay:-3.6s;stroke-width:6}
 .heat-flecks{opacity:.4;animation:food-flecks-glow 5s ease-in-out infinite}

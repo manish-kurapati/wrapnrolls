@@ -1,32 +1,32 @@
 ﻿/* Stationary brand, endless menu rows, and an assembling burger. */
-.homepage .kinetic-hero{--brand-size:clamp(56px,11.8vw,180px);--menu-size:calc(var(--brand-size)*.4);background:#ed5428;color:#791e0c;padding:105px 0 0;min-height:100svh;overflow:hidden}
+.homepage .kinetic-hero{--brand-size:clamp(56px,11.8vw,180px);--menu-size:calc(var(--brand-size)*.4);background:#d13e26;color:#791e0c;padding:105px 0 0;min-height:100svh;overflow:hidden}
 .kinetic-hero .home-header{height:94px;padding:14px 4vw;align-items:center}
 .kinetic-hero .home-header .brand{background:#791e0c;border:0;border-radius:15px}
 .kinetic-hero .home-header .brand img{animation:none}
-.kinetic-hero .home-header nav{background:#fff0d2;border:1px solid #791e0c20;box-shadow:none}
+.kinetic-hero .home-header nav{background:#ffefd2;border:1px solid #791e0c20;box-shadow:none}
 .kinetic-hero .home-header nav a{color:#791e0c}
-.kinetic-hero .home-header nav a:hover{background:#791e0c;color:#fff0d2}
+.kinetic-hero .home-header nav a:hover{background:#791e0c;color:#ffefd2}
 .kinetic-stage{position:relative;flex:1;min-height:700px;height:calc(100svh - 105px);max-height:1100px;display:flex;flex-direction:column;justify-content:center;isolation:isolate;padding:32px 0 100px}
 .product-bands{position:absolute;left:0;right:0;z-index:0;display:grid;gap:12px;overflow:hidden}
 .bands-top{top:5%}.bands-bottom{bottom:16%}
-.product-row{overflow:hidden;width:100%;font:400 var(--menu-size)/1.12 'Lilita One',sans-serif;text-transform:uppercase;letter-spacing:-.025em}
+.product-row{overflow:hidden;width:100%;font:400 var(--menu-size)/1.12 Nority,sans-serif;text-transform:uppercase;letter-spacing:-.025em}
 .product-track{display:flex;width:max-content;animation:menu-flow var(--duration,50s) linear infinite;will-change:transform}
 .product-run{display:flex;flex-shrink:0;align-items:center;gap:.45em;padding-right:.45em;white-space:nowrap}
-.product-run b{font-size:.58em;font-weight:400;color:#fff0d2}
+.product-run b{font-size:.58em;font-weight:400;color:#ffefd2}
 .to-right .product-track{animation-direction:reverse}
 .kinetic-brand{position:absolute;left:0;right:0;top:43%;transform:translateY(-50%);z-index:1;text-align:center;pointer-events:none}
-.kinetic-kicker{font:700 10px/1.4 Arial,sans-serif;letter-spacing:3px;color:#791e0c;margin:0 0 22px}
-.homepage .kinetic-hero h1{position:static;inset:auto;font:400 var(--brand-size)/.94 'Lilita One',sans-serif;letter-spacing:-.045em;color:#fff0d2;text-align:center;white-space:nowrap;margin:0;transform:none;animation:none;text-shadow:0 4px 0 #b84b2633}
+.kinetic-kicker{font:700 10px/1.4 'Roc Grotesk',Arial,sans-serif;letter-spacing:3px;color:#791e0c;margin:0 0 22px}
+.homepage .kinetic-hero h1{position:static;inset:auto;font:400 var(--brand-size)/.94 Nority,sans-serif;letter-spacing:-.045em;color:#ffefd2;text-align:center;white-space:nowrap;margin:0;transform:none;animation:none;text-shadow:0 4px 0 #b84b2633}
 .homepage .kinetic-hero .kinetic-burger{position:absolute;inset:50% auto auto 50%;width:clamp(260px,31vw,455px);height:auto;margin:0;transform:translate(-50%,-50%);z-index:2;pointer-events:none;rotate:0deg}
 .stack-burger{width:100%;height:auto;overflow:visible;display:block}
 .burger-layer{transform-box:view-box;transform-origin:280px 325px;animation:burger-build 8s cubic-bezier(.45,0,.25,1) infinite;will-change:transform}
 .burger-shadow{transform-origin:280px 590px;animation:stack-shadow 8s ease-in-out infinite}
 .kinetic-bottom{position:absolute;left:4vw;right:4vw;bottom:25px;display:flex;gap:24px;align-items:center;justify-content:space-between;z-index:4}
-.kinetic-cta{display:inline-flex;align-items:center;gap:35px;background:#791e0c;color:#fff0d2;border:1px solid #791e0c;border-radius:40px;padding:17px 25px;font-weight:700;font-size:13px;text-decoration:none;transition:background .2s,transform .2s}
+.kinetic-cta{display:inline-flex;align-items:center;gap:35px;background:#791e0c;color:#ffefd2;border:1px solid #791e0c;border-radius:40px;padding:17px 25px;font-weight:700;font-size:13px;text-decoration:none;transition:background .2s,transform .2s}
 .kinetic-cta:hover{background:#42190c;transform:translateY(-3px)}
-.motion-toggle{background:transparent;color:#791e0c;border:0;border-bottom:1px solid #791e0c80;padding:8px 0;font:12px Arial,sans-serif;cursor:pointer}
-.kinetic-note{font:700 9px/1.6 Arial,sans-serif;letter-spacing:1.5px;max-width:190px;text-align:right}
-.kinetic-hero :is(a,button):focus-visible{outline:3px solid #fff0d2;outline-offset:5px}
+.motion-toggle{background:transparent;color:#791e0c;border:0;border-bottom:1px solid #791e0c80;padding:8px 0;font:12px 'Roc Grotesk',Arial,sans-serif;cursor:pointer}
+.kinetic-note{font:700 9px/1.6 'Roc Grotesk',Arial,sans-serif;letter-spacing:1.5px;max-width:190px;text-align:right}
+.kinetic-hero :is(a,button):focus-visible{outline:3px solid #ffefd2;outline-offset:5px}
 .kinetic-hero.motion-paused :is(.product-track,.burger-layer,.burger-shadow){animation-play-state:paused}
 @keyframes menu-flow{to{transform:translateX(-50%)}}
 @keyframes burger-build{0%,15%,100%{transform:translateY(0) rotate(0)}40%,65%{transform:translateY(var(--spread)) rotate(var(--tilt))}}
@@ -41,9 +41,9 @@
 /* A dense, full-height field continues behind and beside the brand. */
 .kinetic-stage .crowded-menu{inset:12px 0 90px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;z-index:0}
 .crowded-menu .product-row{flex-shrink:0;font-size:calc(var(--menu-size)*.78);line-height:1.05}
-.kinetic-brand{z-index:1;top:46%;padding:10px 0;background:#ed5428}
+.kinetic-brand{z-index:1;top:46%;padding:10px 0;background:#d13e26}
 .homepage .kinetic-hero h1{position:relative;z-index:1}
-.kinetic-brand::before{content:'';position:absolute;inset:-12px 14%;background:#ed5428;z-index:0}
+.kinetic-brand::before{content:'';position:absolute;inset:-12px 14%;background:#d13e26;z-index:0}
 .homepage .kinetic-hero .kinetic-burger{top:47%}
 @media(max-width:700px){.kinetic-stage .crowded-menu{top:35px;bottom:90px;gap:12px}.crowded-menu .product-row{font-size:calc(var(--menu-size)*1.15)}.kinetic-brand{top:46%;padding:12px 0}.kinetic-brand::before{inset:-10px 8%}}
 .kinetic-brand{background:transparent}.kinetic-brand::before{inset:-8px 12%}
@@ -56,7 +56,7 @@
 /* Reserve a clear, full-width band for the stationary wordmark. */
 .kinetic-stage .crowded-menu{-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 39%,transparent 39%,transparent 57%,#000 57%,#000 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 39%,transparent 39%,transparent 57%,#000 57%,#000 100%)}
 .kinetic-stage .crowded-menu{-webkit-mask-image:none;mask-image:none}
-.kinetic-brand{background:#ed5428;padding:20px 0}
+.kinetic-brand{background:#d13e26;padding:20px 0}
 @media(max-width:700px){.kinetic-brand{padding:16px 0}}
 /* Small food illustrations frame the name without covering the letters. */
 .brand-snacks{position:absolute;inset:0;pointer-events:none;z-index:2}
@@ -94,8 +94,8 @@
 .kinetic-stage .crowded-menu{top:-6px;bottom:90px}
 @media(max-width:700px){.homepage .kinetic-hero{padding-top:0}.kinetic-stage{height:100svh;min-height:722px}.kinetic-stage .crowded-menu{top:-4px;bottom:90px}}
 /* Taller solid center band fully covers the menu rows behind the brand. */
-.kinetic-brand{padding:64px 0;background:#ed5428}
-.kinetic-brand::before{inset:-2px 0;background:#ed5428}
+.kinetic-brand{padding:64px 0;background:#d13e26}
+.kinetic-brand::before{inset:-2px 0;background:#d13e26}
 @media(max-width:700px){.kinetic-brand{padding:44px 0}.kinetic-brand::before{inset:-2px 0}}
 /* Center the menu action beneath the scrolling rows. */
 .kinetic-bottom{justify-content:center}
