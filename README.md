@@ -11,3 +11,5 @@ To connect online ordering, set ORDER_URL in assets/menu.js and CUSTOM_ORDER_URL
 Food illustrations are serving suggestions.
 
 Page navigation and the home intro reveal share a Framer Motion wave wipe. To rebuild its checked-in browser bundle after editing src/page-waves.js, run npm install followed by npm run build. The static pages also work directly from the folder using the existing assets/page-waves.js bundle.
+
+The build also creates public/ with all six pages, logos, and assets. Vercel runs npm run build and serves this generated directory using vercel.json. Keep public/ out of Git; it is recreated during deployment.
