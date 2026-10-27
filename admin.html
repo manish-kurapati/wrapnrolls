@@ -53,7 +53,9 @@
       <div class="workspace" id="products">
         <section class="panel product-panel" aria-labelledby="products-title">
           <div class="panel-heading"><div><span class="eyebrow">YOUR CATALOGUE</span><h2 id="products-title">Products</h2></div><span id="product-count" class="count-pill">0 items</span></div>
-          <div class="catalogue-controls"><label class="search-label"><span class="sr-only">Search products</span><input id="product-search" type="search" placeholder="Search products..."></label><label class="filter-label"><span class="sr-only">Filter category</span><select id="category-filter"><option value="">All categories</option><option value="wraps">Wraps</option><option value="burgers">Burgers</option><option value="sides">Sides</option><option value="sodas">Sodas</option></select></label></div>
+          <div id="category-tabs" class="admin-tabs" aria-label="Product categories"><button type="button" data-category="wraps">Wraps</button><button type="button" data-category="burgers">Burgers</button><button type="button" data-category="sides">Sides</button><button type="button" data-category="sodas">Sodas</button></div>
+          <div id="subcategory-tabs" class="admin-tabs sub-tabs" aria-label="Menu sections"></div>
+          <div class="catalogue-controls"><label class="search-label"><span class="sr-only">Search products</span><input id="product-search" type="search" placeholder="Search products in this section..."></label></div>
           <div id="product-list" class="product-list"></div>
         </section>
 
@@ -66,17 +68,17 @@
               <label>URL slug<input name="slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="spicy-chicken-wrap"><small>Lowercase letters, numbers and hyphens.</small></label>
               <label>Category<select name="category" required><option value="wraps">Wraps</option><option value="burgers">Burgers</option><option value="sides">Sides</option><option value="sodas">Sodas</option></select></label>
               <label>Menu section<select name="subcategory" required></select><small id="subcategory-help">Choose where this product appears.</small></label>
-              <label class="field-span-2">Description<textarea name="description" rows="3" placeholder="What makes this item special?"></textarea></label>
+              <label class="field-span-2">Ingredients<textarea name="ingredients" rows="3" placeholder="List the ingredients customers should see when they select this product."></textarea></label>
               <label>Regular price ($)<input name="price" type="number" min="0" max="9999.99" step="0.01" required placeholder="0.00"></label>
               <label>Discount (%)<input name="offer_percent" type="number" min="0.01" max="100" step="0.01" placeholder="Optional"><small>Applies to all prices for this product, including soda sizes.</small></label>
               <label>Offer badge text<input name="offer_label" maxlength="32" placeholder="e.g. Lunch special"><small>Optional. Without a custom label, the badge shows the discount percentage.</small></label>
               <label>Medium price ($)<input name="price_medium" type="number" min="0" max="9999.99" step="0.01" placeholder="Optional"></label>
               <label>Large price ($)<input name="price_large" type="number" min="0" max="9999.99" step="0.01" placeholder="Optional"></label>
-              <label>Display order<input name="sort_order" type="number" step="1" value="0" required></label>
             </div>
-            <div class="image-field"><label for="product-image">Add product image <small>PNG only · Max 5 MB</small></label><div class="image-input"><img id="image-preview" alt="Current product image" hidden><input id="product-image" name="image" type="file" accept="image/png,.png"></div><label class="check-row"><input name="remove_image" type="checkbox"> Remove current image</label></div>
+            <div class="image-field"><label for="product-image">Add product image <small>JPG, PNG, WebP, GIF, AVIF or BMP � Max 5 MB</small></label><div class="image-input"><img id="image-preview" alt="Current product image" hidden><input id="product-image" name="image" type="file" accept="image/*"></div><label class="check-row"><input name="remove_image" type="checkbox"> Remove current image</label></div>
+            <label class="check-row visibility-row"><input name="is_best_seller" type="checkbox"><span><strong>Best Seller</strong><small>Show a Best Seller badge on the left of this product.</small></span></label>
             <label class="check-row visibility-row"><input name="is_active" type="checkbox" checked><span><strong>Show on website</strong><small>Turn off to hide this item from customers.</small></span></label>
-            <div class="form-actions"><button class="button primary" type="submit">Save product <span aria-hidden="true">↗</span></button><button id="cancel-edit" class="button quiet" type="button" hidden>Cancel edit</button></div>
+            <div class="form-actions"><button class="button primary" type="submit">Save product <span aria-hidden="true">?</span></button><button id="cancel-edit" class="button quiet" type="button" hidden>Cancel edit</button></div>
           </form>
         </section>
       </div>
