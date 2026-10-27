@@ -131,7 +131,9 @@ try {
   await specialCard.locator('.ingredient-info').click();
   await site.locator('.ingredients-dialog').getByText('Lettuce, tomato, test sauce').waitFor();
   await site.locator('.ingredients-close').click();
+  await site.locator('.category-menu-back').click();
   await site.locator('#wrap-favourites [data-product-slug="' + slug + '"]').waitFor();
+  await site.locator('[data-wrap-filter="special"]').click();
   await specialCard.locator('img').waitFor({ state: 'visible' });
   console.log('New product and image on website: OK');
 

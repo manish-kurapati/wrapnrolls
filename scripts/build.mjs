@@ -1,5 +1,5 @@
 import { build } from 'esbuild';
-import { cp, mkdir, readdir, rm, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -31,10 +31,13 @@ for (const entry of ['storefront', 'admin', 'order']) {
  });
 }
 
-const publicConfig = {
- supabaseUrl: process.env.SUPABASE_URL || '',
- supabaseAnonKey: process.env.SUPABASE_ANON_KEY || ''
-};
+const committedPublicConfig = path.join(root, 'supabase/public-config.json');
+const publicConfig = existsSync(committedPublicConfig)
+ ? JSON.parse(await readFile(committedPublicConfig, 'utf8'))
+ : {
+  supabaseUrl: process.env.SUPABASE_URL || '',
+  supabaseAnonKey: process.env.SUPABASE_ANON_KEY || ''
+ };
 await writeFile(path.join(root, 'assets/config.js'), `window.WRAP_CONFIG = ${JSON.stringify(publicConfig)};\n`);
 
 await rm(output, { recursive: true, force: true });
