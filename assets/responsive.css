@@ -108,6 +108,7 @@ footer{padding-bottom:max(30px,env(safe-area-inset-bottom))!important}
  .closing-stage>.home-eyebrow::before{display:none}
  .closing-caption{bottom:3%}
 }
+
 @media(max-width:340px){
  header>nav a{font-size:10px;padding-inline:7px}
  .home-cta{font-size:16px;padding:14px 18px;gap:10px}

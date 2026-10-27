@@ -56,13 +56,6 @@ header>nav a:hover,.kinetic-hero .home-header nav a:hover{
 }
 .closing-stage>.home-eyebrow{top:5%}
 
-/* A quiet brand pattern frames menus without competing with food or prices. */
-.menu-section,.dirty-menu{position:relative}
-.menu-section::after,.dirty-menu::after{
- content:'';display:block;height:56px;max-width:1140px;margin:52px auto 0;
- background:url('client-brand/beige-pattern.png') center/220px auto;
- opacity:.24;border-radius:12px;pointer-events:none;
-}
 .custom-header::before{
  content:'';display:block;width:65px;height:55px;margin:0 auto 22px;
  background:url('client-brand/yellow-submark-v2.png') center/contain no-repeat;
@@ -88,7 +81,6 @@ body:has(.custom-menu) footer::after{margin:18px auto 0;background-image:url('cl
  .belief-photo{box-shadow:7px 7px 0 var(--brand-yellow)}
  .home-more-art::after{width:57px;height:49px;right:2%;top:0}
  .home-more-art::before{inset:15% 4%}
- .menu-section::after,.dirty-menu::after{height:38px;margin-top:36px;background-size:170px auto}
  .closing-stage>.home-eyebrow::before{width:40px;height:34px;margin-bottom:12px}
  footer,.home-footer{justify-content:center;text-align:center}
  footer::after{flex-basis:100%;height:30px;background-size:auto 30px}
