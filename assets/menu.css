@@ -16,6 +16,10 @@
 .menu-card-body{display:flex;flex-direction:column;min-height:250px}.menu-price{margin-top:auto}
 .menu-footnote{font-size:11px;line-height:1.6;opacity:.8;margin:20px 0 0;text-align:center}
 .order-area{text-align:center;margin-top:45px}.order-button{display:inline-flex;align-items:center;gap:45px;border:2px solid #42191f;border-radius:40px;background:#ffefd2;color:#42191f;padding:18px 30px;font-family:Nority,sans-serif;font-size:24px;box-shadow:0 5px 0 #42191f;transition:transform .25s,box-shadow .25s}
+.order-area .second-order-link,.custom-order-area .second-order-link{margin-left:12px}
+.live-soda-menu{padding:0;background:transparent}
+.live-soda-menu h2{text-align:center;margin-bottom:30px}
+.live-soda-menu .menu-price{font-size:16px;line-height:1.5}
 .order-button:hover{transform:translateY(-4px);box-shadow:0 9px 0 #42191f}
 #order-note{font-size:13px;margin:18px 0 0}
 .making{background:#ffefd2;color:#42191f;padding:85px 6vw 100px}

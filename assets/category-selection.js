@@ -7,54 +7,81 @@
  const heading = panel.querySelector('h2');
  const grid = panel.querySelector('.category-card-grid');
  const back = panel.querySelector('.category-menu-back');
- const sourceCards = [...favourites.querySelectorAll('.menu-card')];
  let selectedButton;
 
- function readCard(card) {
-  const price = card.querySelector('.menu-price');
-  return {
+ function products() {
+  if (window.WRAP_MENU_PRODUCTS) return window.WRAP_MENU_PRODUCTS.map(product => ({
+   title: product.name,
+   price: Number(product.price),
+   offerPercent: product.offer_percent == null ? null : Number(product.offer_percent),
+   offerLabel: product.offer_label || '',
+   category: product.subcategory || '',
+   image: product.image_url || ''
+  }));
+  return [...favourites.querySelectorAll('.menu-card')].map(card => ({
    title: card.querySelector('h3').textContent,
-   // Category cards show the listed menu price, without promotional badges.
-   price: price.querySelector('del')?.textContent || price.textContent.trim(),
-   category: card.dataset.wrapCategory
-  };
+   price: Number((card.querySelector('.menu-price del')?.textContent || card.querySelector('.menu-price').textContent).replace(/[^0-9.]/g, '')),
+   offerPercent: null,
+   offerLabel: '',
+   category: card.dataset.wrapCategory || '',
+   image: card.querySelector('.menu-picture img')?.src || ''
+  }));
  }
- const products = sourceCards.map(readCard);
- // Sample breakfast sides use the listed side prices.
- // Replace this group with the final breakfast menu when supplied.
- const breakfastSides = [
-  { title: 'Breakfast Fries', price: '$5.00' },
-  { title: 'Seasoned Breakfast Fries', price: '$5.00' },
-  { title: 'Sweet Potato Breakfast Fries', price: '$5.00' }
- ];
 
  function createCard(product) {
   const card = document.createElement('article');
   card.className = 'category-card';
   const art = document.createElement('div');
   art.className = 'category-card-art';
-  // Leave the patterned artwork area empty until the final PNGs are supplied.
   art.setAttribute('aria-hidden', 'true');
+  if (product.image) {
+   const image = document.createElement('img');
+   image.src = product.image;
+   image.alt = '';
+   image.loading = 'lazy';
+   art.append(image);
+  }
+  const hasOffer = product.offerPercent != null && Number.isFinite(product.offerPercent)
+   && product.offerPercent > 0 && product.offerPercent <= 100;
+  const offerLabel = hasOffer ? (product.offerLabel.trim()
+   || Number(product.offerPercent.toFixed(2)) + '% OFF') : '';
+  if (offerLabel) {
+   const tag = document.createElement('span');
+   tag.className = 'product-offer-tag';
+   tag.textContent = offerLabel;
+   art.append(tag);
+  }
   const info = document.createElement('div');
   info.className = 'category-card-info';
   const title = document.createElement('h3');
   title.textContent = product.title;
   const price = document.createElement('span');
   price.className = 'category-card-price';
-  price.textContent = product.price;
+  if (hasOffer) {
+   const oldPrice = document.createElement('del');
+   oldPrice.textContent = '$' + product.price.toFixed(2);
+   const salePrice = document.createElement('strong');
+   salePrice.textContent = '$' + (Math.round(product.price * (1 - product.offerPercent / 100) * 100) / 100).toFixed(2);
+   price.append(oldPrice, salePrice);
+  } else price.textContent = '$' + product.price.toFixed(2);
   info.append(title, price);
   card.append(art, info);
   return card;
  }
 
  buttons.forEach(button => button.addEventListener('click', () => {
-  const category = button.dataset.wrapFilter;
+  const choice = button.dataset.wrapFilter;
   selectedButton = button;
-  buttons.forEach(choice => choice.setAttribute('aria-pressed', String(choice === button)));
-  const items = root.dataset.menuSelection === 'wraps'
-   ? products.filter(product => product.category === category)
-   : category === 'breakfast' ? breakfastSides : products;
+  buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+  const items = products().filter(product => root.dataset.menuSelection === 'sides'
+   ? choice === 'breakfast' ? product.category === 'breakfast' : product.category !== 'breakfast'
+   : product.category === choice);
   grid.replaceChildren(...items.map(createCard));
+  if (!items.length) {
+   const empty = document.createElement('p');
+   empty.textContent = 'No products in this category yet.';
+   grid.append(empty);
+  }
   heading.textContent = button.textContent.trim();
   favourites.hidden = true;
   panel.hidden = false;

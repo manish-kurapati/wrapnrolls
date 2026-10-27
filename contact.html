@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#d13e26">
+  <meta name="description" content="Contact Wrap N' Roll Tortilla Bar by phone, WhatsApp, Instagram, or email.">
+  <title>Contact | Wrap N' Roll</title>
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/brand-layout.css">
+  <link rel="stylesheet" href="assets/contact.css">
+</head>
+<body class="contact-page">
+  <header class="contact-header">
+    <a class="brand" href="index.html" aria-label="Wrap N' Roll home"><img src="logo-ivory.png" alt="Wrap N' Roll Tortilla Bar"></a>
+    <nav aria-label="Main navigation">
+      <a href="wraps.html">Wraps</a><a href="burgers.html">Burgers</a><a href="sides.html">Sides</a><a href="sodas.html">Sodas</a><a class="nav-contact" href="contact.html" aria-current="page">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <section class="contact-intro" aria-labelledby="contact-title">
+      <span class="contact-eyebrow">GET IN TOUCH</span>
+      <h1 id="contact-title">Say hello.</h1>
+      <p>Questions, feedback, or just craving a good wrap? Reach us your way.</p>
+    </section>
+    <div class="contact-content">
+      <section class="contact-details" aria-labelledby="contact-details-title">
+        <h2 id="contact-details-title">Find us here.</h2>
+        <div class="contact-method"><span>CALL</span><a href="tel:+19025912466">+1 (902) 591-2466 ↗</a></div>
+        <div class="contact-method"><span>WHATSAPP</span><a href="https://wa.me/19025912466" target="_blank" rel="noopener noreferrer">Message us ↗</a><small>Same number: +1 (902) 591-2466</small></div>
+        <div class="contact-method"><span>INSTAGRAM</span><a href="https://www.instagram.com/wrapnrollns?psln=eDFkbjA0Z2ZwaHpl" target="_blank" rel="noopener noreferrer">@wrapnrollns ↗</a></div>
+        <div class="contact-method"><span>EMAIL</span><a href="mailto:wrapnrollns@gmail.com">wrapnrollns@gmail.com ↗</a></div>
+      </section>
+      <section class="contact-form-section" aria-labelledby="questions-title">
+        <span class="contact-eyebrow">DROP US A NOTE</span>
+        <h2 id="questions-title">Have questions?</h2>
+        <form id="contact-form" action="mailto:wrapnrollns@gmail.com" method="post" enctype="text/plain">
+          <label for="contact-name">Name</label><input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your name" required>
+          <label for="contact-email">Email</label><input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Your email" required>
+          <label for="contact-phone">Phone number <span>(optional)</span></label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="Your phone number">
+          <label for="contact-message">Message</label><textarea id="contact-message" name="message" rows="7" placeholder="What would you like to ask?" required></textarea>
+          <button type="submit">Open email draft <span aria-hidden="true">↗</span></button>
+          <p class="form-note" id="contact-status" role="status">Your email app will open with your message. Send the draft there to complete your request.</p>
+        </form>
+      </section>
+    </div>
+  </main>
+  <footer><span>WRAP N' ROLL · TORTILLA BAR</span><a href="index.html">Back to home ↗</a></footer>
+  <script src="assets/contact.js"></script>
+</body>
+</html>

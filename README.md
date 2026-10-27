@@ -1,15 +1,33 @@
 # Wrap N'Roll
 
-Static restaurant website with six pages: Home, Wraps, Burgers, Sides, Sodas, and Customise.
+Static restaurant website with a Supabase powered catalogue and admin dashboard. The public pages are Home, Wraps, Burgers, Sides, Sodas, Customise, Contact, and Order Online. The admin dashboard has separate `/admin.html` (overview), `/admin-products.html` (products), and `/admin-ordering.html` (delivery links) pages.
 
-Open index.html in a modern browser, or serve this folder with any static web server. No build step or package installation is required. Keep the assets folder alongside the HTML files. The Lilita One font is bundled locally; its license is in assets/fonts/OFL-Lilita-One.txt.
+## Supabase setup
 
-Wraps and Burgers use lightweight SVG hero animations that play once and hold their finished state, with ambient steam. Sides and Sodas start with compact headings and floating illustrations. Product photo areas use white placeholders with a softened yellow pattern; soda imagery is retained. Wraps and Sides have separate category menus and a return to favourites. Animations respect reduced-motion preferences.
+1. Create a Supabase project and run [`supabase/migrations/202610270001_menu_admin.sql`](supabase/migrations/202610270001_menu_admin.sql), then [`supabase/migrations/202610270002_png_offers.sql`](supabase/migrations/202610270002_png_offers.sql), then [`supabase/migrations/202610270003_skip_ordering.sql`](supabase/migrations/202610270003_skip_ordering.sql), in its SQL Editor. These add product discounts, PNG upload limits, and the editable SkipTheDishes URL.
+2. In Supabase Authentication, create an email/password user for the manager. Copy that user's UUID from the Users screen. Add the user as an admin in the SQL Editor:
 
-To connect online ordering, set ORDER_URL in assets/menu.js and CUSTOM_ORDER_URL in assets/customise-order.js. Until these are configured, ordering links display a coming-soon message. Promotions are configured in assets/offers.js.
+   ```sql
+   insert into public.admin_users (user_id) values ('YOUR_AUTH_USER_UUID');
+   ```
 
-Food illustrations are serving suggestions.
+3. Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` as environment variables in Vercel (Project Settings → Environment Variables) or in a local `.env.local` file. The local project is configured through `.env.local`, which is ignored by Git. Use the project's **publishable/anon** key, never its secret or service role key. The build writes these public values to `assets/config.js` and bundles the Supabase browser client.
+4. Run `npm install && npm run build`, then deploy `public/` or let Vercel run the configured build. Open `/admin.html`, sign in, upload product images, and enter the restaurant's Uber Eats, DoorDash, and SkipTheDishes ordering page URLs.
 
-Page navigation and the home intro reveal share a Framer Motion wave wipe. To rebuild its checked-in browser bundle after editing src/page-waves.js, run npm install followed by npm run build. The static pages also work directly from the folder using the existing assets/page-waves.js bundle.
+Every Order now button opens `/order.html`, where customers choose from the delivery services with URLs configured. The supplied SkipTheDishes link appears by default, even before the third migration runs. Checkout and payment happen on the chosen delivery service. This site does not send a cart or product selections to those services; the restaurant's listing must also contain the same products and prices.
 
-The build also creates public/ with all six pages, logos, and assets. Vercel runs npm run build and serves this generated directory using vercel.json. Keep public/ out of Git; it is recreated during deployment.
+Products have a category, menu section, price, optional medium/large prices for sodas, optional percentage discount and offer badge, image, display order, and visibility switch. A percentage discount applies to every listed size of that product. Wraps and Sides keep their shortlists, and the full category list appears when a visitor chooses a menu section. Burgers use the main card grid; the four former "More to love" listings are hidden from the storefront but remain in Supabase. New burgers appear as cards with or without photos. Product images must be PNG files up to 5 MB. Product edits appear on the website on the next page load. Only an authenticated user listed in `admin_users` can change products, settings, or images. Public visitors can read active products and ordering links.
+
+All 30 starter products currently have no linked image. The menu and admin show patterned placeholders until the client uploads a PNG for a product. Homepage food artwork remains in place. The Breakfast Sides section currently has no real products configured.
+
+Without Supabase configuration, the original HTML menu remains visible. Once configured, Supabase is the menu source, including for new, hidden, or deleted products. If the menu fetch fails, the site shows an unavailable message instead of displaying stale products. Product images on the menu come from the public `product-images` Storage bucket. Existing decorative hero art and the Build Your Own Wrap ingredient price list are still static HTML.
+
+The Wraps and Burgers landing sections play transparent WebM versions of the supplied animations in `assets/videos/`, with the original MP4 files as a browser fallback. The Contact page links to the restaurant phone, WhatsApp, Instagram, and email. Its form opens a prefilled email draft to `wrapnrollns@gmail.com`; visitors must send that draft from their email app. No form submissions are stored by the website.
+
+## Development
+
+`npm run build` bundles `src/storefront.js`, `src/admin.js`, `src/order.js`, and the page transitions, writes browser bundles into `assets/`, and creates `public/` for Vercel. Keep `public/` out of Git. For a local build, set the two environment variables before running the command. The bundled Lilita One font license is in `assets/fonts/OFL-Lilita-One.txt`.
+
+With the local server running at `http://127.0.0.1:8000/`, run `npm run smoke` to check menu sections and admin routes. Set `WRAP_ADMIN_EMAIL` and `WRAP_ADMIN_PASSWORD` in the shell to include the authenticated product list and photo checks.
+
+Run `npm run test:admin` with those same admin environment variables for a live browser test of sign-in, product and image management, menu visibility, ordering links, and sign-out. The test uses a uniquely named temporary product and restores the ordering links when finished.
