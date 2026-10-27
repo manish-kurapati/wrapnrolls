@@ -4,13 +4,55 @@ import { discountedPrice, offerFor, showOfferTag, showPrice } from './offers.js'
 
 const category = document.body.classList.contains('soda-page') ? 'sodas' :
   document.querySelector('[data-menu-selection]')?.dataset.menuSelection ||
-  (location.pathname.endsWith('burgers.html') ? 'burgers' : null);
+  (/\/burgers(?:\.html)?\/?$/.test(location.pathname) ? 'burgers' : null);
 const removedBurgerSlugs = new Set([
   'double-double-burger',
   'duet-shrimp-beef-burger',
   'onion-mushroom-burger',
   'ring-burger'
 ]);
+let visibleProducts = [];
+
+function prepareIngredientDialog() {
+  const dialog = document.createElement('dialog');
+  dialog.className = 'ingredients-dialog';
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'ingredients-close';
+  close.textContent = 'Close';
+  close.addEventListener('click', () => dialog.close());
+  const title = document.createElement('h2');
+  const heading = document.createElement('h3');
+  heading.textContent = 'Ingredients';
+  const content = document.createElement('p');
+  dialog.append(close, title, heading, content);
+  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  document.body.append(dialog);
+  document.addEventListener('click', event => {
+    const card = event.target.closest('.menu-card, .category-card, .dirty-menu-row, .alani-card');
+    if (!card || !card.dataset.productSlug) return;
+    const product = visibleProducts.find(item => item.slug === card.dataset.productSlug);
+    if (!product) return;
+    title.textContent = product.name;
+    content.textContent = product.ingredients?.trim() || 'Ingredients have not been listed yet.';
+    dialog.showModal();
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    const card = event.target.closest('.menu-card, .category-card, .dirty-menu-row, .alani-card');
+    if (!card || !card.dataset.productSlug) return;
+    event.preventDefault();
+    card.click();
+  });
+}
+prepareIngredientDialog();
+
+function makeSelectable(element, product) {
+  element.dataset.productSlug = product.slug;
+  element.tabIndex = 0;
+  element.setAttribute('role', 'button');
+  element.setAttribute('aria-label', `View ingredients for ${product.name}`);
+}
 
 function setPicture(container, product) {
   if (!container) return;
@@ -29,8 +71,17 @@ function setPicture(container, product) {
   image.loading = 'eager';
 }
 
+function showBestSeller(container, product) {
+  container.querySelector('.best-seller-tag')?.remove();
+  if (!product.is_best_seller) return;
+  const tag = document.createElement('span');
+  tag.className = 'best-seller-tag';
+  tag.textContent = 'Best Seller';
+  container.append(tag);
+}
+
 function updateCard(element, product) {
-  element.dataset.productSlug = product.slug;
+  makeSelectable(element, product);
   element.dataset.wrapCategory = product.subcategory || '';
   element.querySelector('h3').textContent = product.name;
   const description = element.querySelector('.menu-card-body p');
@@ -39,6 +90,7 @@ function updateCard(element, product) {
   const picture = element.querySelector('.menu-picture');
   setPicture(picture, product);
   showOfferTag(picture, product);
+  showBestSeller(picture, product);
 }
 
 function createCard(product) {
@@ -97,9 +149,20 @@ function updateDrinkPrice(element, value, label, discountPercent = null) {
   }
 }
 
+function createSodaIllustration() {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('class', 'drink-mini');
+  svg.setAttribute('viewBox', '0 0 100 140');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.innerHTML = '<path d="M24 40L31 125Q50 135 69 125L76 40Z" fill="#f7a277" stroke="#42191f" stroke-width="2.2"/><path d="M26 55Q41 42 50 57T74 52" fill="none" stroke="#fff0d2" stroke-width="7"/><path d="M52 37L59 10L80 5" fill="none" stroke="#42191f" stroke-width="5"/><ellipse cx="50" cy="39" rx="29" ry="8" fill="#fff0d2" stroke="#42191f" stroke-width="2.2"/><circle cx="50" cy="88" r="20" fill="#ed5428" stroke="#fff0d2"/>';
+  return svg;
+}
+
 function updateSodaRow(element, product) {
+  makeSelectable(element, product);
   element.querySelector('h3, h4').textContent = product.name;
   showOfferTag(element.querySelector('h3, h4').parentElement, product);
+  showBestSeller(element.querySelector('h3, h4').parentElement, product);
   const description = element.querySelector('p');
   if (description) description.textContent = product.description || '';
   const prices = [...element.querySelectorAll('.drink-price')];
@@ -109,9 +172,8 @@ function updateSodaRow(element, product) {
   updateDrinkPrice(prices[2], product.price_large, 'Large', offer?.percent);
   const url = productImage(product);
   const holder = element.querySelector('.drink-info') || element;
-  holder.querySelector('svg.drink-mini')?.remove();
   if (url) {
-    holder.querySelector('.drink-mini-placeholder')?.remove();
+    holder.querySelector('svg.drink-mini')?.remove();
     let image = holder.querySelector('img.drink-mini');
     if (!image) {
       image = document.createElement('img');
@@ -123,12 +185,7 @@ function updateSodaRow(element, product) {
     image.src = url;
   } else {
     holder.querySelector('img.drink-mini')?.remove();
-    if (!holder.querySelector('.drink-mini-placeholder')) {
-      const placeholder = document.createElement('span');
-      placeholder.className = 'drink-mini drink-mini-placeholder';
-      placeholder.setAttribute('aria-hidden', 'true');
-      holder.prepend(placeholder);
-    }
+    if (!holder.querySelector('svg.drink-mini')) holder.prepend(createSodaIllustration());
   }
 }
 
@@ -138,9 +195,7 @@ function createSodaRow(product) {
   article.className = isAlani ? 'alani-card' : 'dirty-menu-row';
   const info = document.createElement('div');
   if (!isAlani) info.className = 'drink-info';
-  const image = document.createElement('span');
-  image.className = 'drink-mini drink-mini-placeholder';
-  image.setAttribute('aria-hidden', 'true');
+  const image = createSodaIllustration();
   const copy = document.createElement('div');
   copy.append(document.createElement(isAlani ? 'h4' : 'h3'), document.createElement('p'));
   if (isAlani) article.append(image, copy);
@@ -173,6 +228,7 @@ function renderSodas(items) {
 function renderProducts(products, unavailable = false) {
   if (!category) return;
   const items = products.filter(item => item.category === category && item.is_active);
+  visibleProducts = items;
   window.WRAP_MENU_PRODUCTS = items.map(item => ({ ...item, image_url: productImage(item) }));
   if (unavailable) {
     const section = document.querySelector('.dirty-menu, .menu-section');

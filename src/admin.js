@@ -11,6 +11,8 @@ const status = message => {
 const form = $('#product-form');
 let products = [];
 let offersAvailable = false;
+let selectedCategory = 'wraps';
+let selectedSubcategory = '';
 const page = document.body.dataset.adminPage || 'overview';
 document.querySelector(`[data-page-link="${page}"]`)?.setAttribute('aria-current', 'page');
 const pageTitles = { overview: ['Menu manager', 'Keep every item fresh and ready to order.'], products: ['Products', 'Edit photos, prices and product visibility.'], ordering: ['Ordering links', 'Send customers to your delivery partners.'] };
@@ -39,10 +41,9 @@ setSubcategory(form.elements.category.value);
 
 function applyFilters() {
   const query = $('#product-search').value.trim().toLowerCase();
-  const category = $('#category-filter').value;
   let count = 0;
   $('#product-list').querySelectorAll('.product-row').forEach(row => {
-    row.hidden = Boolean((category && row.dataset.category !== category) || (query && !row.dataset.search.includes(query)));
+    row.hidden = Boolean(row.dataset.category !== selectedCategory || (selectedSubcategory && row.dataset.subcategory !== selectedSubcategory) || (query && !row.dataset.search.includes(query)));
     if (!row.hidden) count++;
   });
   $('#product-list').querySelector('.empty-list')?.remove();
@@ -54,6 +55,40 @@ function applyFilters() {
   }
   $('#product-count').textContent = `${count} item${count === 1 ? '' : 's'}`;
 }
+
+function selectCategory(category) {
+  selectedCategory = category;
+  selectedSubcategory = '';
+  $('#category-tabs').querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.category === category)));
+  const subTabs = $('#subcategory-tabs');
+  subTabs.replaceChildren();
+  for (const [value, label] of [['', 'All'], ...sections[category]]) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.dataset.subcategory = value;
+    button.textContent = label;
+    button.setAttribute('aria-pressed', String(value === selectedSubcategory));
+    subTabs.append(button);
+  }
+  if (!form.elements.id.value) {
+    form.elements.category.value = category;
+    setSubcategory(category);
+  }
+  applyFilters();
+}
+$('#category-tabs').addEventListener('click', event => {
+  const button = event.target.closest('button[data-category]');
+  if (button) selectCategory(button.dataset.category);
+});
+$('#subcategory-tabs').addEventListener('click', event => {
+  const button = event.target.closest('button[data-subcategory]');
+  if (!button) return;
+  selectedSubcategory = button.dataset.subcategory;
+  $('#subcategory-tabs').querySelectorAll('button').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+  if (!form.elements.id.value && selectedSubcategory) form.elements.subcategory.value = selectedSubcategory;
+  applyFilters();
+});
+selectCategory(selectedCategory);
 
 async function refresh() {
   const [{ data, error }, settings] = await Promise.all([
@@ -72,7 +107,8 @@ async function refresh() {
     const row = document.createElement('div');
     row.className = 'product-row' + (product.is_active ? '' : ' muted');
     row.dataset.category = product.category;
-    row.dataset.search = `${product.name} ${product.description || ''} ${product.slug}`.toLowerCase();
+    row.dataset.subcategory = product.subcategory || '';
+    row.dataset.search = `${product.name} ${product.ingredients || ''} ${product.slug}`.toLowerCase();
     const imageSource = productImage(product);
     const img = document.createElement(imageSource ? 'img' : 'span');
     if (imageSource) { img.src = imageSource; img.alt = ''; }
@@ -88,6 +124,12 @@ async function refresh() {
       offer.className = 'admin-offer-tag';
       offer.textContent = product.offer_label?.trim() || `${Number(Number(product.offer_percent).toFixed(2))}% OFF`;
       info.append(offer);
+    }
+    if (product.is_best_seller) {
+      const badge = document.createElement('span');
+      badge.className = 'admin-best-seller';
+      badge.textContent = 'Best Seller';
+      info.append(badge);
     }
     const actions = document.createElement('div');
     actions.className = 'actions';
@@ -113,7 +155,6 @@ async function refresh() {
 }
 
 $('#product-search').addEventListener('input', applyFilters);
-$('#category-filter').addEventListener('change', applyFilters);
 form.elements.name.addEventListener('input', event => {
   if (form.elements.id.value || form.elements.slug.dataset.edited === 'true') return;
   form.elements.slug.value = event.target.value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -211,8 +252,9 @@ $('#product-list').addEventListener('click', async event => {
     delete form.elements.slug.dataset.edited;
     form.elements.category.value = product.category;
     setSubcategory(product.category, product.subcategory);
-    for (const key of ['id','name','slug','description','price','offer_percent','offer_label','price_medium','price_large','sort_order']) form.elements[key].value = product[key] ?? '';
+    for (const key of ['id','name','slug','ingredients','price','offer_percent','offer_label','price_medium','price_large']) form.elements[key].value = product[key] ?? '';
     form.elements.is_active.checked = product.is_active;
+    form.elements.is_best_seller.checked = Boolean(product.is_best_seller);
     form.elements.remove_image.checked = false;
     $('#image-preview').src = productImage(product);
     $('#image-preview').hidden = !product.image_path;
@@ -235,7 +277,8 @@ form.addEventListener('submit', async event => {
   event.preventDefault();
   const f = form.elements;
   const image = f.image.files[0];
-  if (image && (image.type !== 'image/png' || !image.name.toLowerCase().endsWith('.png') || image.size > 5 * 1024 * 1024)) return status('Use a PNG image up to 5 MB.');
+  const imageExtensions = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif', 'image/avif': 'avif', 'image/bmp': 'bmp' };
+  if (image && (!imageExtensions[image.type] || image.size > 5 * 1024 * 1024)) return status('Use a JPG, PNG, WebP, GIF, AVIF or BMP image up to 5 MB.');
   const offerPercent = f.offer_percent.value === '' ? null : Number(f.offer_percent.value);
   const offerLabel = f.offer_label.value.trim() || null;
   if (offerPercent != null && (!Number.isFinite(offerPercent) || offerPercent <= 0 || offerPercent > 100)) return status('Discount must be greater than 0% and at most 100%.');
@@ -245,16 +288,16 @@ form.addEventListener('submit', async event => {
   let path = f.remove_image.checked ? null : existing?.image_path || null;
   let uploadedPath = null;
   if (image) {
-    uploadedPath = `${crypto.randomUUID()}.png`;
+    uploadedPath = `${crypto.randomUUID()}.${imageExtensions[image.type]}`;
     const { error } = await supabase.storage.from('product-images').upload(uploadedPath, image, { contentType: image.type, upsert: false });
     if (error) return status('Image upload failed: ' + error.message);
     path = uploadedPath;
   }
   const record = { name: f.name.value.trim(), slug: f.slug.value.trim(), category: f.category.value,
-    subcategory: f.subcategory.value.trim() || null, description: f.description.value.trim(),
+    subcategory: f.subcategory.value.trim() || null, ingredients: f.ingredients.value.trim(),
     price: Number(f.price.value), price_medium: f.price_medium.value ? Number(f.price_medium.value) : null,
     price_large: f.price_large.value ? Number(f.price_large.value) : null,
-    sort_order: Number(f.sort_order.value), is_active: f.is_active.checked, image_path: path };
+    is_active: f.is_active.checked, is_best_seller: f.is_best_seller.checked, image_path: path };
   if (offersAvailable) {
     record.offer_percent = offerPercent;
     record.offer_label = offerLabel;

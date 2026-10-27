@@ -11,18 +11,22 @@
 
  function products() {
   if (window.WRAP_MENU_PRODUCTS) return window.WRAP_MENU_PRODUCTS.map(product => ({
+   slug: product.slug,
    title: product.name,
    price: Number(product.price),
    offerPercent: product.offer_percent == null ? null : Number(product.offer_percent),
    offerLabel: product.offer_label || '',
+   bestSeller: Boolean(product.is_best_seller),
    category: product.subcategory || '',
    image: product.image_url || ''
   }));
   return [...favourites.querySelectorAll('.menu-card')].map(card => ({
+   slug: card.dataset.productSlug,
    title: card.querySelector('h3').textContent,
    price: Number((card.querySelector('.menu-price del')?.textContent || card.querySelector('.menu-price').textContent).replace(/[^0-9.]/g, '')),
    offerPercent: null,
    offerLabel: '',
+   bestSeller: false,
    category: card.dataset.wrapCategory || '',
    image: card.querySelector('.menu-picture img')?.src || ''
   }));
@@ -31,6 +35,12 @@
  function createCard(product) {
   const card = document.createElement('article');
   card.className = 'category-card';
+  if (product.slug) {
+   card.dataset.productSlug = product.slug;
+   card.tabIndex = 0;
+   card.setAttribute('role', 'button');
+   card.setAttribute('aria-label', `View ingredients for ${product.title}`);
+  }
   const art = document.createElement('div');
   art.className = 'category-card-art';
   art.setAttribute('aria-hidden', 'true');
@@ -49,6 +59,12 @@
    const tag = document.createElement('span');
    tag.className = 'product-offer-tag';
    tag.textContent = offerLabel;
+   art.append(tag);
+  }
+  if (product.bestSeller) {
+   const tag = document.createElement('span');
+   tag.className = 'best-seller-tag';
+   tag.textContent = 'Best Seller';
    art.append(tag);
   }
   const info = document.createElement('div');

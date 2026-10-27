@@ -22,3 +22,9 @@ body[data-admin-page="overview"] [data-page-link="overview"],body[data-admin-pag
 .admin-offer-tag{display:inline-block;margin-top:7px;padding:4px 8px;background:#f9cc42;color:#4a2a16;border-radius:6px;font-size:10px;font-weight:800;line-height:1.2}
 .product-row.no-photo .product-thumbnail{align-items:start;padding-top:5px}
 .product-row.no-photo .product-thumbnail::after{content:'Add PNG';display:block;background:#fffaf0ec;border:1px solid #ead8c5;border-radius:5px;padding:2px 3px;color:#69452c;font:700 8px/1.1 Arial,sans-serif}
+:root{font-family:Arial,sans-serif}
+.login-card h1,.dashboard-header h1,.panel-heading h2,.overview-actions strong,.stat-card strong{font-family:Arial,sans-serif;letter-spacing:normal}
+.product-row.no-photo .product-thumbnail::after{content:'Add photo'}
+.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.admin-tabs button{border:1px solid #e6d8c7;background:#fffaf4;color:#665348;border-radius:9px;padding:9px 13px;font:700 13px Arial,sans-serif}.admin-tabs button[aria-pressed=true]{background:#d94524;border-color:#d94524;color:#fff}.sub-tabs button{font-size:12px;padding:7px 11px}.catalogue-controls{margin-top:12px}
+.admin-best-seller{display:inline-block;margin:7px 0 0 7px;padding:4px 8px;border-radius:6px;background:#d94524;color:#fff;font:700 10px Arial,sans-serif}
+.product-row[data-category=sodas].no-photo .product-thumbnail{background:#fff4dc}

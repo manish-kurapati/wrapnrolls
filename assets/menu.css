@@ -1,4 +1,12 @@
 /* Menu and kitchen story */
+.menu-card[data-product-slug],.category-card[data-product-slug],.dirty-menu-row[data-product-slug],.alani-card[data-product-slug]{cursor:pointer}
+.menu-card[data-product-slug]:focus-visible,.category-card[data-product-slug]:focus-visible,.dirty-menu-row[data-product-slug]:focus-visible,.alani-card[data-product-slug]:focus-visible{outline:3px solid #ffca4a;outline-offset:3px}
+.ingredients-dialog{width:min(440px,calc(100% - 32px));border:0;border-radius:20px;padding:28px;background:#fff8ec;color:#42191f;box-shadow:0 20px 70px #210e15a8}
+.ingredients-dialog::backdrop{background:#210e15a8}
+.ingredients-dialog h2{margin:16px 0;font:700 28px/1.2 Arial,sans-serif}
+.ingredients-dialog h3{margin:0 0 8px;font:700 17px/1.3 Arial,sans-serif}
+.ingredients-dialog p{font:16px/1.6 Arial,sans-serif;white-space:pre-line;margin:0}
+.ingredients-close{float:right;border:0;border-radius:8px;padding:9px 14px;background:#d13e26;color:#fff;cursor:pointer;font:700 14px Arial,sans-serif}
 .menu-section{padding:0 6vw 85px;background:#d13e26;color:#ffefd2}
 .menu-intro{text-align:center;max-width:510px;margin:0 auto 38px;font-size:15px;line-height:1.7}
 .menu-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:26px}.menu-card{grid-column:span 2}.menu-card:nth-child(4){grid-column:2 / span 2}

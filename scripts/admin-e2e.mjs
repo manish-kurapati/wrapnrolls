@@ -93,7 +93,8 @@ try {
   assert(await page.locator('#product-list .product-row').count() === originalCount, 'Product list count differs from database');
   await page.locator('#product-form input[name="name"]').fill(name);
   await page.locator('#product-form input[name="price"]').fill('11.50');
-  await page.locator('#product-form textarea[name="description"]').fill('Temporary browser test product.');
+  await page.locator('#product-form textarea[name="ingredients"]').fill('Lettuce, tomato, test sauce');
+  await page.locator('#product-form input[name="is_best_seller"]').check();
   await page.locator('#product-form input[name="image"]').setInputFiles(imageOne);
   assert(await page.locator('#product-form input[name="slug"]').inputValue() === slug, 'Slug did not auto-generate');
   await page.locator('#product-form button[type="submit"]').click();
@@ -101,31 +102,35 @@ try {
   assert(await page.locator('#product-list .product-row').count() === originalCount + 1, 'New product did not appear in admin');
   assert(await row().locator('img').count() === 1, 'Uploaded image is missing in admin');
   const created = await product();
-  assert(created?.image_path && created.price === 11.5 && created.subcategory === 'special', 'Create/upload did not persist');
+  assert(created?.image_path && created.price === 11.5 && created.subcategory === 'special' && created.ingredients === 'Lettuce, tomato, test sauce' && created.is_best_seller, 'Create/upload did not persist');
   const offersReady = Object.hasOwn(created, 'offer_percent');
   await page.locator('#product-search').fill(name);
   assert(await page.locator('#product-list .product-row:visible').count() === 1, 'Product search did not filter');
-  await page.locator('#category-filter').selectOption('burgers');
+  await page.locator('#category-tabs [data-category="burgers"]').click();
   assert(await page.locator('#product-list .product-row:visible').count() === 0, 'Category filter did not filter');
-  await page.locator('#category-filter').selectOption('wraps');
+  await page.locator('#category-tabs [data-category="wraps"]').click();
   await page.locator('#product-search').fill('');
   console.log('Create, image upload, slug, search, filter: OK');
 
   await row().locator('[data-action="edit"]').click();
   await page.locator('#product-form input[name="image"]').setInputFiles({
-    name: 'not-allowed.jpg', mimeType: 'image/jpeg', buffer: Buffer.from('not a PNG')
+    name: 'not-an-image.txt', mimeType: 'text/plain', buffer: Buffer.from('not an image')
   });
   await page.locator('#product-form button[type="submit"]').click();
-  await page.getByText('Use a PNG image up to 5 MB.').waitFor();
+  await page.getByText('Use a JPG, PNG, WebP, GIF, AVIF or BMP image up to 5 MB.').waitFor();
   assert((await product())?.image_path === created.image_path, 'Rejected image changed the product');
   await page.locator('#cancel-edit').click();
-  console.log('Non-PNG upload rejected: OK');
+  console.log('Non-image upload rejected: OK');
 
   await waitForMenu(site, true);
   await site.locator('[data-wrap-filter="special"]').click();
   const specialCard = site.locator('.category-card').filter({ hasText: name });
   await specialCard.waitFor({ state: 'visible' });
   assert((await specialCard.textContent()).includes('$11.50'), 'New product price missing from website');
+  await specialCard.locator('.best-seller-tag').waitFor();
+  await specialCard.click();
+  await site.locator('.ingredients-dialog').getByText('Lettuce, tomato, test sauce').waitFor();
+  await site.locator('.ingredients-close').click();
   await specialCard.locator('img').waitFor({ state: 'visible' });
   console.log('New product and image on website: OK');
 

@@ -3,7 +3,6 @@
  "framework": null,
  "buildCommand": "npm run build",
  "outputDirectory": "public",
- "rewrites": [
-  { "source": "/admin", "destination": "/admin.html" }
- ]
+ "cleanUrls": true,
+ "trailingSlash": false
 }
