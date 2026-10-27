@@ -128,9 +128,10 @@ try {
   await specialCard.waitFor({ state: 'visible' });
   assert((await specialCard.textContent()).includes('$11.50'), 'New product price missing from website');
   await specialCard.locator('.best-seller-tag').waitFor();
-  await specialCard.click();
+  await specialCard.locator('.ingredient-info').click();
   await site.locator('.ingredients-dialog').getByText('Lettuce, tomato, test sauce').waitFor();
   await site.locator('.ingredients-close').click();
+  await site.locator('#wrap-favourites [data-product-slug="' + slug + '"]').waitFor();
   await specialCard.locator('img').waitFor({ state: 'visible' });
   console.log('New product and image on website: OK');
 

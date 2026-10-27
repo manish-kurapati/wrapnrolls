@@ -37,9 +37,6 @@
   card.className = 'category-card';
   if (product.slug) {
    card.dataset.productSlug = product.slug;
-   card.tabIndex = 0;
-   card.setAttribute('role', 'button');
-   card.setAttribute('aria-label', `View ingredients for ${product.title}`);
   }
   const art = document.createElement('div');
   art.className = 'category-card-art';
@@ -81,6 +78,14 @@
    price.append(oldPrice, salePrice);
   } else price.textContent = '$' + product.price.toFixed(2);
   info.append(title, price);
+  if (product.slug) {
+   const button = document.createElement('button');
+   button.type = 'button';
+   button.className = 'ingredient-info';
+   button.textContent = 'i';
+   button.setAttribute('aria-label', `Ingredients for ${product.title}`);
+   info.append(button);
+  }
   card.append(art, info);
   return card;
  }

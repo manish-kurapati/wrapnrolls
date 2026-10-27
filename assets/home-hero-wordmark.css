@@ -1,0 +1,11 @@
+/* Full-screen home wordmark inspired by the brand's two-line lockup. */
+.homepage .kinetic-hero{height:100svh;min-height:600px;display:flex;flex-direction:column;padding:0;background:#d13e26}
+.homepage .kinetic-hero .home-header{position:relative;z-index:4;flex:0 0 auto}
+.homepage .kinetic-hero .kinetic-stage{flex:1;min-height:0;height:auto;max-height:none;padding:0}
+.homepage .kinetic-hero .kinetic-brand{top:47%;left:-2%;right:-2%;padding:0;background:none;transform:translateY(-50%) rotate(-2deg)}
+.homepage .kinetic-hero .kinetic-brand::before,.homepage .kinetic-hero .brand-snacks{display:none}
+.homepage .kinetic-hero h1{font:400 clamp(90px,18vw,290px)/.82 Nority,sans-serif;letter-spacing:-.055em;white-space:normal;color:#ffefd2;text-shadow:6px 8px 0 #a92d1d35}
+.homepage .kinetic-hero h1 span{display:block;white-space:nowrap;color:#ffefd2}
+.homepage .kinetic-hero h1 span+span{margin-top:.16em}
+.homepage .kinetic-hero .kinetic-bottom{bottom:clamp(16px,4vh,42px)}
+@media(max-width:700px){.homepage .kinetic-hero{min-height:520px}.homepage .kinetic-hero .kinetic-brand{top:47%;left:0;right:0}.homepage .kinetic-hero h1{font-size:16.5vw;line-height:.9;letter-spacing:-.06em}.homepage .kinetic-hero h1 span+span{margin-top:.18em}}

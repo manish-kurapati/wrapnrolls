@@ -16,27 +16,49 @@ async function count(selector, expected, label) {
   if (actual !== expected) throw new Error(`${label}: expected ${expected}, got ${actual}`);
   console.log(`${label}: ${actual}`);
 }
+async function countSelectedCategory(label) {
+  const expected = await page.evaluate(() => {
+    const selected = document.querySelector('[data-wrap-filter][aria-pressed="true"]')?.dataset.wrapFilter;
+    const isSides = document.querySelector('[data-menu-selection]')?.dataset.menuSelection === 'sides';
+    return window.WRAP_MENU_PRODUCTS.filter(product => isSides
+      ? selected === 'breakfast' ? product.subcategory === 'breakfast' : product.subcategory !== 'breakfast'
+      : product.subcategory === selected).length;
+  });
+  await count('.category-menu .category-card', expected, label);
+}
+
+await page.route('**/rest/v1/products?**', async route => {
+  const response = await route.fetch();
+  const data = await response.json();
+  for (const product of data) product.is_best_seller = ['veggie', 'regular-fries'].includes(product.slug);
+  await route.fulfill({ response, json: data });
+});
 
 await open('wraps.html');
-await count('#wrap-favourites .menu-card', 5, 'Wrap shortlist');
+await count('#wrap-favourites .menu-card', 1, 'Wrap Best Seller shortlist');
 await count('#wrap-favourites .menu-picture img', 0, 'Wrap photos cleared');
+await page.locator('#wrap-favourites .menu-card').click({ position: { x: 30, y: 30 } });
+if (await page.locator('.ingredients-dialog').evaluate(dialog => dialog.open)) throw new Error('Card click opened ingredients without the info button');
+await page.locator('#wrap-favourites .ingredient-info').click();
+if (!(await page.locator('.ingredients-dialog').evaluate(dialog => dialog.open))) throw new Error('Info button did not open ingredients');
+await page.locator('.ingredients-close').click();
 if (process.env.SMOKE_SCREENSHOTS) {
   await page.evaluate(() => { document.querySelector('.loader')?.remove(); document.querySelector('#menu')?.scrollIntoView({ behavior: 'instant' }); });
   await page.screenshot({ path: 'public/wraps-hierarchy-check.png' });
 }
 await page.evaluate(() => document.querySelector('[data-wrap-filter="special"]').click());
-await count('.category-menu .category-card', 4, 'Special wraps');
+await countSelectedCategory('Special wraps');
 await page.evaluate(() => document.querySelector('[data-wrap-filter="breakfast"]').click());
-await count('.category-menu .category-card', 1, 'Breakfast wraps');
+await countSelectedCategory('Breakfast wraps');
 await page.evaluate(() => {
   window.WRAP_MENU_PRODUCTS.push({ name: 'Smoke Test Wrap', slug: 'smoke-test-wrap', category: 'wraps', subcategory: 'special', price: 10, image_url: '' });
   document.querySelector('[data-wrap-filter="special"]').click();
 });
-await count('.category-menu .category-card', 5, 'New wrap stays in Special Wraps');
-await count('#wrap-favourites .menu-card', 5, 'Wrap shortlist stays curated');
+await countSelectedCategory('New wrap stays in Special Wraps');
+await count('#wrap-favourites .menu-card', 1, 'Wrap shortlist stays selected');
 
 await open('sides.html');
-await count('[data-menu-favourites] .menu-grid .menu-card', 4, 'Side shortlist');
+await count('[data-menu-favourites] .menu-grid .menu-card', 1, 'Side Best Seller shortlist');
 await count('[data-menu-favourites] .menu-picture img', 0, 'Side photos cleared');
 await count('[data-menu-favourites] .text-menu-item, [data-menu-favourites] .category-subheading', 0, 'Extra shrimp, salad and dessert block removed');
 if (process.env.SMOKE_SCREENSHOTS) {
@@ -44,15 +66,15 @@ if (process.env.SMOKE_SCREENSHOTS) {
   await page.screenshot({ path: 'public/sides-hierarchy-check.png' });
 }
 await page.evaluate(() => document.querySelector('[data-wrap-filter="regular"]').click());
-await count('.category-menu .category-card', 8, 'Regular sides');
+await countSelectedCategory('Regular sides');
 await page.evaluate(() => document.querySelector('[data-wrap-filter="breakfast"]').click());
-await count('.category-menu .category-card', 0, 'Breakfast sides pending');
+await countSelectedCategory('Breakfast sides');
 await page.evaluate(() => {
   window.WRAP_MENU_PRODUCTS.push({ name: 'Smoke Test Side', slug: 'smoke-test-side', category: 'sides', subcategory: 'regular', price: 4, image_url: '' });
   document.querySelector('[data-wrap-filter="regular"]').click();
 });
-await count('.category-menu .category-card', 9, 'New side stays in Regular Sides');
-await count('[data-menu-favourites] .menu-grid .menu-card', 4, 'Side shortlist stays curated');
+await countSelectedCategory('New side stays in Regular Sides');
+await count('[data-menu-favourites] .menu-grid .menu-card', 1, 'Side shortlist stays selected');
 
 await open('burgers.html');
 await count('.menu-section .menu-grid .menu-card', 4, 'Burger cards');
@@ -63,8 +85,8 @@ if (await page.getByText('More to love').count()) throw new Error('Removed burge
 await open('sodas.html');
 await count('.dirty-menu-row', 5, 'Classic sodas');
 await count('.alani-card', 4, 'Alani sodas');
-await count('.dirty-menu-row svg.drink-mini, .alani-card svg.drink-mini', 0, 'Soda product art cleared');
-await count('.dirty-menu-row .drink-mini-placeholder, .alani-card .drink-mini-placeholder', 9, 'Soda placeholders');
+await count('.dirty-menu-row svg.drink-mini, .alani-card svg.drink-mini', 9, 'Soda animated art preserved');
+await count('.dirty-menu-row .ingredient-info, .alani-card .ingredient-info', 0, 'Sodas have no info buttons');
 
 // Mock one database response to verify prices update inside the original layouts.
 const priceRoute = '**/rest/v1/products?**';
@@ -72,6 +94,7 @@ await page.route(priceRoute, async route => {
   const response = await route.fetch();
   const data = await response.json();
   for (const product of data) {
+    product.is_best_seller = ['veggie', 'regular-fries'].includes(product.slug);
     if (product.slug === 'veggie') { product.offer_percent = 20; product.offer_label = 'Wrap deal'; }
     if (product.slug === 'regular-fries') { product.price = 7.25; product.offer_percent = 20; product.offer_label = 'Fries deal'; }
     if (product.slug === 'crisp-onion-burger') { product.price = 19; product.offer_percent = 25; product.offer_label = 'Burger deal'; }

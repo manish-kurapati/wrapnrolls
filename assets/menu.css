@@ -1,6 +1,11 @@
 /* Menu and kitchen story */
-.menu-card[data-product-slug],.category-card[data-product-slug],.dirty-menu-row[data-product-slug],.alani-card[data-product-slug]{cursor:pointer}
-.menu-card[data-product-slug]:focus-visible,.category-card[data-product-slug]:focus-visible,.dirty-menu-row[data-product-slug]:focus-visible,.alani-card[data-product-slug]:focus-visible{outline:3px solid #ffca4a;outline-offset:3px}
+.menu-card-body,.category-card-info,.drink-info>div,.alani-card>div{position:relative}
+.ingredient-info{display:inline-grid;place-items:center;width:27px;height:27px;margin:8px 0 0 8px;border:2px solid currentColor;border-radius:50%;background:transparent;color:inherit;font:700 17px/1 Georgia,serif;cursor:pointer;vertical-align:middle}
+.ingredient-info:hover{background:#f8c638;color:#42191f}
+.ingredient-info:focus-visible{outline:3px solid #f8c638;outline-offset:3px}
+.menu-card-body>.ingredient-info,.category-card-info>.ingredient-info{position:absolute;right:12px;bottom:12px;margin:0}
+.menu-card-body,.category-card-info{padding-bottom:35px}
+.shortlist-empty{grid-column:1/-1;text-align:center;font:700 16px/1.5 Arial,sans-serif;padding:32px 12px}
 .ingredients-dialog{width:min(440px,calc(100% - 32px));border:0;border-radius:20px;padding:28px;background:#fff8ec;color:#42191f;box-shadow:0 20px 70px #210e15a8}
 .ingredients-dialog::backdrop{background:#210e15a8}
 .ingredients-dialog h2{margin:16px 0;font:700 28px/1.2 Arial,sans-serif}

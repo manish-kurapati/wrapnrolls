@@ -29,7 +29,9 @@ function prepareIngredientDialog() {
   dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
   document.body.append(dialog);
   document.addEventListener('click', event => {
-    const card = event.target.closest('.menu-card, .category-card, .dirty-menu-row, .alani-card');
+    const button = event.target.closest('.ingredient-info');
+    if (!button) return;
+    const card = button.closest('[data-product-slug]');
     if (!card || !card.dataset.productSlug) return;
     const product = visibleProducts.find(item => item.slug === card.dataset.productSlug);
     if (!product) return;
@@ -37,21 +39,27 @@ function prepareIngredientDialog() {
     content.textContent = product.ingredients?.trim() || 'Ingredients have not been listed yet.';
     dialog.showModal();
   });
-  document.addEventListener('keydown', event => {
-    if (event.key !== 'Enter' && event.key !== ' ') return;
-    const card = event.target.closest('.menu-card, .category-card, .dirty-menu-row, .alani-card');
-    if (!card || !card.dataset.productSlug) return;
-    event.preventDefault();
-    card.click();
-  });
 }
 prepareIngredientDialog();
 
 function makeSelectable(element, product) {
   element.dataset.productSlug = product.slug;
-  element.tabIndex = 0;
-  element.setAttribute('role', 'button');
-  element.setAttribute('aria-label', `View ingredients for ${product.name}`);
+  element.removeAttribute('tabindex');
+  element.removeAttribute('role');
+  element.removeAttribute('aria-label');
+  if (category === 'sodas') {
+    element.querySelector('.ingredient-info')?.remove();
+    return;
+  }
+  let button = element.querySelector('.ingredient-info');
+  if (!button) {
+    button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'ingredient-info';
+    button.textContent = 'i';
+    (element.querySelector('.menu-card-body, .drink-info > div') || element.querySelector('h4')?.parentElement || element).append(button);
+  }
+  button.setAttribute('aria-label', `Ingredients for ${product.name}`);
 }
 
 function setPicture(container, product) {
@@ -113,14 +121,29 @@ function createCard(product) {
 function renderCardHierarchy(items) {
   const section = document.querySelector('.menu-section');
   const bySlug = new Map(items.map(item => [item.slug, item]));
+  if (category === 'wraps' || category === 'sides') {
+    const grid = section.querySelector('[data-menu-favourites] .menu-grid');
+    const existing = new Map([...grid.querySelectorAll('.menu-card[data-product-slug]')].map(card => [card.dataset.productSlug, card]));
+    const bestSellers = items.filter(item => item.is_best_seller);
+    grid.replaceChildren(...bestSellers.map(product => {
+      const card = existing.get(product.slug) || createCard(product);
+      updateCard(card, product);
+      return card;
+    }));
+    if (!bestSellers.length) {
+      const empty = document.createElement('p');
+      empty.className = 'shortlist-empty';
+      empty.textContent = 'No best sellers selected yet.';
+      grid.append(empty);
+    }
+    return;
+  }
   const used = new Set();
   section.querySelectorAll('.menu-card[data-product-slug]').forEach(element => {
     const product = bySlug.get(element.dataset.productSlug);
     if (!product) element.remove();
     else { updateCard(element, product); used.add(product.slug); }
   });
-  // Wraps and sides have category panels for the full menu. Their main cards
-  // stay as the original shortlist. New items appear in their selected panel.
   if (category === 'burgers') {
     const grid = section.querySelector('.menu-grid');
     for (const product of items.filter(item => !used.has(item.slug))) {
