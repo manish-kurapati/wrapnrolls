@@ -19,7 +19,7 @@
 /* The venue section shares a cream patterned background at this seam. */
 .homepage .home-more::before{display:none}
 footer::after,.home-footer::after{display:none!important}
-.page-home-link{position:absolute;z-index:30;top:26px;left:calc(5vw + 115px);width:42px;height:42px;display:grid;place-items:center;border:2px solid currentColor;border-radius:12px;color:#ffefd2;text-decoration:none;line-height:1}
+.page-home-link{display:none!important}
 .page-home-link svg{width:23px;height:23px}
 .page-home-link:hover,.page-home-link:focus-visible{background:#ffefd2;color:#d13e26;outline-offset:3px}
 .soda-header .page-home-link{color:#d13e26}
@@ -38,8 +38,8 @@ footer::after,.home-footer::after{display:none!important}
 .dirty-menu-row .drink-info{min-width:0;align-items:center;justify-content:center}
 .dirty-menu-row h3,.dirty-menu-row p{overflow-wrap:anywhere}
 @media(max-width:850px){.home-wrap-video{width:94%;height:48%;top:40%;right:3%}}
+@media(max-width:700px){header>nav .page-home-link{display:inline-flex!important;position:static;flex:0 0 32px;width:32px;height:32px;min-height:32px;padding:0!important;align-items:center;justify-content:center;border:2px solid currentColor;border-radius:9px;color:#42191f;line-height:1}}
 @media(max-width:600px){
- .page-home-link{left:16px;top:18px;width:32px;height:32px;border-radius:9px}
  .page-home-link svg{width:18px;height:18px}
  .home-wrap-video{top:42%;right:2%;width:96%;height:42%;transform:none;object-fit:contain}
  .wrap-hero-film{height:auto;min-height:0;aspect-ratio:16/9;max-height:none;border-radius:14px}
