@@ -1,4 +1,4 @@
-/* Final client artwork. Decorative details never replace menu or story copy. */
+﻿/* Final client artwork. Decorative details never replace menu or story copy. */
 :root{--brand-red:#d13e26;--brand-cream:#ffefd2;--brand-yellow:#f5b106;--brand-ink:#42191f}
 
 /* Keep currency and promotion symbols out of the supplied demo font. */
@@ -46,19 +46,19 @@ header>nav a:hover,.kinetic-hero .home-header nav a:hover{
 }
 .home-more-art::after{
  content:'';position:absolute;right:0;top:3%;width:76px;height:66px;
- background:url('client-brand/red-submark-v2.png') center/contain no-repeat;
+ background:url('client-brand/red-submark.png') center/contain no-repeat;
  transform:rotate(9deg);pointer-events:none;
 }
 .home-more-art .more-burger,.home-more-art .more-fries{z-index:1}
 .closing-stage>.home-eyebrow::before{
  content:'';display:block;width:55px;height:47px;margin:0 auto 15px;
- background:url('client-brand/yellow-submark-v2.png') center/contain no-repeat;
+ background:url('client-brand/beige-submark.png') center/contain no-repeat;
 }
 .closing-stage>.home-eyebrow{top:5%}
 
 .custom-header::before{
  content:'';display:block;width:65px;height:55px;margin:0 auto 22px;
- background:url('client-brand/yellow-submark-v2.png') center/contain no-repeat;
+ background:url('client-brand/beige-submark.png') center/contain no-repeat;
  transform:rotate(-7deg);
 }
 .custom-step h2>span{color:var(--brand-red);border-bottom:4px solid var(--brand-yellow)}

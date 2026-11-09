@@ -90,7 +90,7 @@
   return card;
  }
 
- buttons.forEach(button => button.addEventListener('click', () => {
+ function select(button, scroll = true) {
   const choice = button.dataset.wrapFilter;
   selectedButton = button;
   buttons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
@@ -103,14 +103,21 @@
    empty.textContent = 'No products in this category yet.';
    grid.append(empty);
   }
-  heading.textContent = button.textContent.trim();
+  heading.textContent = root.dataset.menuSelection === 'sides'
+   ? (choice === 'breakfast' ? 'Breakfast Crunch' : 'Regular Crunch')
+   : (choice === 'breakfast' ? 'Breakfast Favourites' : 'The Best');
   favourites.hidden = true;
   panel.hidden = false;
-  heading.focus({ preventScroll: true });
-  panel.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
- }));
+  if (scroll) {
+   heading.focus({ preventScroll: true });
+   panel.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+  }
+ }
+ buttons.forEach(button => button.addEventListener('click', () => select(button)));
+ select(buttons[0], false);
+ document.addEventListener('wrap-menu-loaded', () => select(selectedButton || buttons[0], false));
 
- back.addEventListener('click', () => {
+ back?.addEventListener('click', () => {
   panel.hidden = true;
   favourites.hidden = false;
   buttons.forEach(button => button.setAttribute('aria-pressed', 'false'));

@@ -11,6 +11,11 @@ const removedBurgerSlugs = new Set([
   'onion-mushroom-burger',
   'ring-burger'
 ]);
+document.addEventListener('click', event => {
+  if (event.target.closest('a[href="order.html"]')) {
+    try { sessionStorage.setItem('wrap-order-source', location.href); } catch {}
+  }
+});
 let visibleProducts = [];
 
 function prepareIngredientDialog() {
@@ -124,7 +129,9 @@ function renderCardHierarchy(items) {
   if (category === 'wraps' || category === 'sides') {
     const grid = section.querySelector('[data-menu-favourites] .menu-grid');
     const existing = new Map([...grid.querySelectorAll('.menu-card[data-product-slug]')].map(card => [card.dataset.productSlug, card]));
-    const bestSellers = items.filter(item => item.is_best_seller);
+    const bestSellers = items.filter(item => category === 'sides'
+      ? item.subcategory !== 'breakfast'
+      : item.subcategory === 'special');
     grid.replaceChildren(...bestSellers.map(product => {
       const card = existing.get(product.slug) || createCard(product);
       updateCard(card, product);
@@ -133,7 +140,7 @@ function renderCardHierarchy(items) {
     if (!bestSellers.length) {
       const empty = document.createElement('p');
       empty.className = 'shortlist-empty';
-      empty.textContent = 'No best sellers selected yet.';
+      empty.textContent = 'No products in this category yet.';
       grid.append(empty);
     }
     return;
@@ -250,12 +257,18 @@ function renderSodas(items) {
 
 function renderProducts(products, unavailable = false) {
   if (!category) return;
-  const items = products.filter(item => item.category === category && item.is_active);
+  const items = products.filter(item => item.category === category && item.is_active)
+    .map(item => ({
+      ...item,
+      name: item.name?.replace(/\broll\b/gi, 'Wrap') || '',
+      description: item.description?.replace(/\broll\b/gi, 'wrap') || '',
+      ingredients: item.ingredients?.replace(/\broll\b/gi, 'wrap') || ''
+    }));
   visibleProducts = items;
   window.WRAP_MENU_PRODUCTS = items.map(item => ({ ...item, image_url: productImage(item) }));
   if (unavailable) {
     const section = document.querySelector('.dirty-menu, .menu-section');
-    section.querySelectorAll('.menu-card, .text-menu-item, .dirty-menu-row, .alani-card').forEach(element => element.remove());
+    section.querySelectorAll('.menu-card, .category-card, .text-menu-item, .dirty-menu-row, .alani-card').forEach(element => element.remove());
     const message = document.createElement('p');
     message.textContent = 'Menu temporarily unavailable. Please try again shortly.';
     message.className = 'menu-unavailable';
@@ -264,6 +277,7 @@ function renderProducts(products, unavailable = false) {
   }
   if (category === 'sodas') renderSodas(items);
   else renderCardHierarchy(items);
+  document.dispatchEvent(new Event('wrap-menu-loaded'));
 }
 
 async function load() {

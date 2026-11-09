@@ -2,34 +2,39 @@
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
  const stage=document.querySelector('.closing-stage');
  const foods=[...document.querySelectorAll('.closing-food')];
- const angles=[-14,13,-10,13],drift=[-75,80,-40,45];
- let visible=false,animations=[];
+ const angles=[-14,13,-10,13];
+ let active=false, flights=[];
  function buildFlights(){
-  animations.forEach(a=>a.cancel());animations=[];
+  flights.forEach(flight=>flight.cancel());
+  flights=[];
   foods.forEach((node,i)=>{
-   node.style.opacity=reduce.matches?'1':'';
-   node.style.transform=reduce.matches?'rotate('+angles[i]+'deg)':'';
-   if(reduce.matches)return;
-   const bottom=innerHeight+node.offsetHeight;
-   const transform=(x,y,r,scale)=>'translate3d('+x+'px,'+y+'px,0) rotate('+r+'deg) scale('+scale+')';
-   const animation=node.animate([
-    {offset:0,opacity:0,transform:transform(drift[i],bottom,angles[i]-28,.85),easing:'cubic-bezier(.12,.6,.3,1)'},
-    {offset:.1,opacity:1,transform:transform(drift[i]*.65,bottom*.55,angles[i]-16,.92),easing:'cubic-bezier(.16,1,.3,1)'},
-    {offset:.43,opacity:1,transform:transform(-drift[i]*.3,-48,angles[i]+6,1.03),easing:'cubic-bezier(.55,0,.85,.45)'},
-    {offset:.88,opacity:1,transform:transform(-drift[i],bottom*.85,angles[i]+35,.9),easing:'ease-in'},
-    {offset:.94,opacity:0,transform:transform(-drift[i],bottom,angles[i]+42,.85)},
-    {offset:1,opacity:0,transform:transform(-drift[i],bottom,angles[i]+42,.85)}
-   ],{duration:4600,delay:i*380,iterations:Infinity,fill:'both'});
-   if(!visible)animation.pause();
-   animations.push(animation);
+   if(reduce.matches){node.style.opacity='1';node.style.transform=`rotate(${angles[i]}deg)`;return;}
+   node.style.opacity='';
+   node.style.transform='';
+   // The ingredient rises out of the footer, hangs briefly, then falls below it again.
+   const distance=stage.clientHeight-node.offsetTop+node.offsetHeight+40;
+   const x=(i%2===0?-1:1)*Math.min(stage.clientWidth*.08,85);
+   const at=(shift,y,angle,scale)=>`translate3d(${shift}px,${y}px,0) rotate(${angle}deg) scale(${scale})`;
+   const flight=node.animate([
+    {offset:0,transform:at(x,distance,angles[i]-28,.72),opacity:0},
+    {offset:.18,transform:at(x*.45,distance*.48,angles[i]-12,.9),opacity:1},
+    {offset:.38,transform:at(0,0,angles[i],1),opacity:1},
+    {offset:.5,transform:at(-x*.12,-22,angles[i]+6,1.04),opacity:1},
+    {offset:.62,transform:at(0,0,angles[i],1),opacity:1},
+    {offset:.82,transform:at(x*.45,distance*.48,angles[i]+12,.9),opacity:1},
+    {offset:1,transform:at(x,distance,angles[i]+28,.72),opacity:0}
+   ],{duration:5300+i*300,delay:i*440,iterations:Infinity,fill:'both',easing:'ease-in-out'});
+   if(!active)flight.pause();
+   flights.push(flight);
   });
  }
  if(stage){
   new IntersectionObserver(entries=>{
-   visible=entries[0].isIntersecting;
-   animations.forEach(a=>visible?a.play():a.pause());
+   active=entries[0].isIntersecting;
+   flights.forEach(flight=>active?flight.play():flight.pause());
   },{threshold:.1}).observe(stage);
   reduce.addEventListener('change',buildFlights);
+  addEventListener('resize',buildFlights);
   buildFlights();
  }
  const reveal=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('is-visible');reveal.unobserve(entry.target);}}),{threshold:.12});
