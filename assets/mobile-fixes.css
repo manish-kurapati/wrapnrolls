@@ -1,0 +1,69 @@
+/* Mobile polish: hero videos, spacing and the home shortcut. Loaded last. */
+@media(max-width:700px){
+ /* ---------- Shared header: logo centred, home button pinned top-left ---------- */
+ header:not(.custom-header){position:relative}
+ header>nav{position:static!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;justify-self:center;margin-top:2px}
+ header>nav .page-home-link{
+  display:inline-flex!important;position:absolute;left:16px;top:14px;z-index:5;
+  width:40px;height:40px;min-height:40px;flex:none;padding:0!important;
+  border:0;border-radius:50%;background:#ffefd2;color:#d13e26;
+  box-shadow:0 3px 0 #9e2830;
+ }
+ header>nav .page-home-link svg{width:20px;height:20px}
+ header>nav .page-home-link:active{transform:translateY(2px);box-shadow:0 1px 0 #9e2830}
+ .soda-header .page-home-link{background:#d13e26;color:#ffefd2;box-shadow:0 3px 0 #7a1d1a}
+ header>nav{max-width:calc(100vw - 20px);overflow-x:auto;scrollbar-width:none}
+ header>nav::-webkit-scrollbar{display:none}
+
+ /* ---------- Home hero: stacked, video fully visible ---------- */
+ .homepage .kinetic-hero{padding-top:0}
+ .homepage .kinetic-stage{height:auto;min-height:calc(100svh - 130px);max-height:none;padding:8px 0 28px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px}
+ .homepage .kinetic-hero .kinetic-brand{position:relative;order:1;top:auto;left:auto;right:auto;transform:none;width:100%;padding:26px 6vw 0;display:block;text-align:center}
+ .homepage .kinetic-hero h1{font-size:clamp(40px,12.5vw,60px);line-height:.95;margin:0 auto}
+ .hero-location{font-size:14px;margin:12px 0 0;line-height:1.35}
+ .home-wrap-video{position:relative!important;order:2;top:auto!important;right:auto!important;left:auto;transform:scale(1.5)!important;transform-origin:50% 50%;width:100%!important;height:clamp(220px,40svh,340px)!important;object-fit:contain;margin:6px 0 0;pointer-events:none}
+ .kinetic-bottom{position:relative!important;order:3;left:auto!important;right:auto!important;bottom:auto!important;width:100%;justify-content:center;padding:0 6vw;margin-top:10px}
+ .kinetic-cta{width:100%;max-width:340px;justify-content:center;gap:14px;font-size:16px;padding:16px 22px}
+
+ /* ---------- Category hero (wraps / burgers / sides / sodas) ---------- */
+ .category-page .landing-frame{height:auto;min-height:0}
+ .wrap-video-hero{display:flex!important;flex-direction:column;align-items:stretch;gap:6px;padding:18px 6vw 34px;overflow:hidden}
+ .wrap-copy-left,.wrap-copy-right{order:initial;width:100%;text-align:center}
+ .wrap-copy-left{order:1}.wrap-hero-film,.category-build-stage{order:2}.wrap-copy-right{order:3}
+ .wrap-hero-film{position:relative!important;inset:auto!important;width:100%!important;height:clamp(240px,70vw,330px)!important;min-height:0!important;max-height:none!important;overflow:hidden;border-radius:0}
+ .wrap-hero-film video{width:100%;height:100%;object-fit:contain;transform:scale(1.7)!important;transform-origin:50% 50%}
+ .wrap-copy-left h1{font-size:clamp(32px,9.5vw,44px);line-height:1.05;margin-bottom:12px}
+ .wrap-copy-right h2{font-size:clamp(28px,8vw,34px);margin-bottom:10px}
+ .wrap-hero-copy p{font-size:13px;line-height:1.6;margin-bottom:16px}
+ .wrap-video-cta{white-space:normal;justify-content:center}
+
+ /* ---------- General spacing ---------- */
+ .site-footer{padding:36px 6vw 30px}
+ .homepage .home-closing{min-height:560px}
+}
+@media(max-width:380px){
+ .homepage .kinetic-hero h1{font-size:40px}
+ header>nav a{padding-inline:7px}
+}
+
+/* ---------- Fixed pill navigation that follows the page while scrolling ---------- */
+.sticky-nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;justify-content:center;
+ padding:max(10px,env(safe-area-inset-top)) 10px 0;pointer-events:none;
+ transform:translateY(-130%);transition:transform .3s ease;visibility:hidden}
+.sticky-nav.show{transform:none;visibility:visible}
+.sticky-nav .sn-logo{display:none!important}
+.sticky-nav nav{pointer-events:auto;display:flex;align-items:center;gap:2px;max-width:100%;padding:5px;
+ background:#ffefd2;border-radius:999px;border-bottom:3px solid #f5c93a;box-shadow:0 8px 22px #42191f55}
+.sticky-nav nav a{display:inline-flex!important;align-items:center;justify-content:center;min-height:40px;padding:0 clamp(10px,3vw,22px);
+ border-radius:999px;color:#791e0c;font:700 13px Arial,sans-serif;white-space:nowrap}
+.sticky-nav nav a.is-current{background:#f7b500;color:#42191f}
+.sticky-nav nav a.is-cta{background:#f5c93a;color:#42191f;box-shadow:0 3px 0 #c9a02a}
+@media(max-width:700px){.sticky-nav nav{width:100%;max-width:370px;justify-content:space-between}.sticky-nav nav a{padding:0 clamp(7px,2.4vw,14px);font-size:12px}}
+@media(prefers-reduced-motion:reduce){.sticky-nav{transition:none}}
+.sticky-nav nav a.sn-home{flex:none;width:40px;min-height:40px;height:40px;padding:0;background:#d13e26;color:#ffefd2;margin-right:2px}
+.sticky-nav nav a.sn-home svg{width:20px;height:20px}
+.sticky-nav nav{box-sizing:border-box;overflow:hidden}
+.sticky-nav nav a{flex:0 1 auto;min-width:0}
+@media(max-width:700px){.sticky-nav nav{width:calc(100vw - 20px);max-width:370px}.sticky-nav nav a{padding:0 clamp(5px,1.9vw,12px)}}
+@media(max-width:400px){.sticky-nav nav a{font-size:11px}.sticky-nav nav a.sn-home{width:34px;height:34px;min-height:34px}.sticky-nav nav a.sn-home svg{width:17px;height:17px}}
+@media(max-width:340px){.sticky-nav nav a{font-size:10px;padding:0 4px}}
