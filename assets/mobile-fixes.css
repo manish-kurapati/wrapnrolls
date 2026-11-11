@@ -51,7 +51,7 @@
  padding:max(10px,env(safe-area-inset-top)) 10px 0;pointer-events:none;
  transform:translateY(-130%);transition:transform .3s ease;visibility:hidden}
 .sticky-nav.show{transform:none;visibility:visible}
-.sticky-nav .sn-logo,.sticky-nav .sn-home{display:none!important}
+.sticky-nav .sn-logo{display:none!important}
 .sticky-nav nav{pointer-events:auto;display:flex;align-items:center;gap:2px;max-width:100%;padding:5px;
  background:#ffefd2;border-radius:999px;border-bottom:3px solid #f5c93a;box-shadow:0 8px 22px #42191f55}
 .sticky-nav nav a{display:inline-flex!important;align-items:center;justify-content:center;min-height:40px;padding:0 clamp(10px,3vw,22px);
@@ -60,3 +60,5 @@
 .sticky-nav nav a.is-cta{background:#f5c93a;color:#42191f;box-shadow:0 3px 0 #c9a02a}
 @media(max-width:700px){.sticky-nav nav{width:100%;max-width:370px;justify-content:space-between}.sticky-nav nav a{padding:0 clamp(7px,2.4vw,14px);font-size:12px}}
 @media(prefers-reduced-motion:reduce){.sticky-nav{transition:none}}
+.sticky-nav nav a.sn-home{flex:none;width:40px;min-height:40px;height:40px;padding:0;background:#d13e26;color:#ffefd2;margin-right:2px}
+.sticky-nav nav a.sn-home svg{width:20px;height:20px}
