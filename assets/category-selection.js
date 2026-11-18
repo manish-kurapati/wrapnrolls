@@ -109,7 +109,7 @@
   } else {
    const wrapIcon = document.createElement('img');
    wrapIcon.className = 'best-food-icon';
-   wrapIcon.src = 'assets/updates/catering-wraps.png';
+   wrapIcon.src = 'assets/updates/best-wrap-realistic.png';
    wrapIcon.alt = '';
    heading.replaceChildren('The Best ', wrapIcon);
   }

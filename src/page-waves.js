@@ -93,14 +93,12 @@ document.addEventListener('click', async event => {
  event.preventDefault();
  if (busy) return;
  busy = true;
- // Load the document before the wipe starts so its midpoint never waits on I/O.
- await warmPage(url.href);
  const { root, layers } = overlay();
  try {
   const startedAt = Date.now();
-  sweep(layers, startedAt).catch(() => {});
-  await after(coverAt);
+  // Begin navigation with the wave and resume the same timeline on arrival.
   try { sessionStorage.setItem(key, JSON.stringify({ startedAt })); } catch {}
+  sweep(layers, startedAt).catch(() => {});
   location.assign(url.href);
  } catch {
   root.remove();
