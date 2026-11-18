@@ -90,7 +90,20 @@ await open('sodas.html');
 await count('.dirty-menu-row', 5, 'Classic sodas');
 await count('.alani-card', 4, 'Alani sodas');
 await count('.dirty-menu-row svg.drink-mini, .alani-card svg.drink-mini', 9, 'Soda animated art preserved');
-await count('.dirty-menu-row .ingredient-info, .alani-card .ingredient-info', 0, 'Sodas have no info buttons');
+await count('.dirty-menu-row .ingredient-info, .alani-card .ingredient-info', 9, 'Soda ingredient buttons');
+for (const selector of ['.dirty-menu-row', '.alani-card']) {
+  const row = page.locator(selector).first();
+  const name = await row.locator('h3, h4').innerText();
+  const expected = await row.evaluate(element => {
+    const product = window.WRAP_MENU_PRODUCTS.find(item => item.slug === element.dataset.productSlug);
+    return product?.ingredients?.trim() || product?.description?.trim();
+  });
+  await row.locator('.ingredient-info').click();
+  const dialog = page.locator('.ingredients-dialog');
+  if (!(await dialog.evaluate(element => element.open))) throw new Error(`Ingredients did not open for ${name}`);
+  if (!expected || (await dialog.locator('p').innerText()).trim() !== expected) throw new Error(`Ingredients missing for ${name}`);
+  await dialog.locator('.ingredients-close').click();
+}
 
 // Mock one database response to verify prices update inside the original layouts.
 const priceRoute = '**/rest/v1/products?**';

@@ -41,7 +41,9 @@ function prepareIngredientDialog() {
     const product = visibleProducts.find(item => item.slug === card.dataset.productSlug);
     if (!product) return;
     title.textContent = product.name;
-    content.textContent = product.ingredients?.trim() || 'Ingredients have not been listed yet.';
+    content.textContent = product.ingredients?.trim() ||
+      (product.category === 'sodas' ? product.description?.trim() : '') ||
+      'Ingredients have not been listed yet.';
     dialog.showModal();
   });
 }
@@ -52,10 +54,6 @@ function makeSelectable(element, product) {
   element.removeAttribute('tabindex');
   element.removeAttribute('role');
   element.removeAttribute('aria-label');
-  if (category === 'sodas') {
-    element.querySelector('.ingredient-info')?.remove();
-    return;
-  }
   let button = element.querySelector('.ingredient-info');
   if (!button) {
     button = document.createElement('button');
@@ -63,7 +61,9 @@ function makeSelectable(element, product) {
     button.className = 'ingredient-info';
     button.textContent = 'i';
     const picture = element.querySelector('.menu-picture');
-    if (picture) {
+    const sodaHeading = category === 'sodas' ? element.querySelector('h3, h4') : null;
+    if (sodaHeading) sodaHeading.append(button);
+    else if (picture) {
       picture.removeAttribute('aria-hidden');
       picture.append(button);
     } else {
@@ -195,8 +195,8 @@ function createSodaIllustration() {
 }
 
 function updateSodaRow(element, product) {
-  makeSelectable(element, product);
   element.querySelector('h3, h4').textContent = product.name;
+  makeSelectable(element, product);
   showOfferTag(element.querySelector('h3, h4').parentElement, product);
   showBestSeller(element.querySelector('h3, h4').parentElement, product);
   const description = element.querySelector('p');

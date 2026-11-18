@@ -253,6 +253,9 @@ $('#product-list').addEventListener('click', async event => {
     form.elements.category.value = product.category;
     setSubcategory(product.category, product.subcategory);
     for (const key of ['id','name','slug','ingredients','price','offer_percent','offer_label','price_medium','price_large']) form.elements[key].value = product[key] ?? '';
+    if (product.category === 'sodas' && !product.ingredients?.trim()) {
+      form.elements.ingredients.value = product.description || '';
+    }
     form.elements.is_active.checked = product.is_active;
     form.elements.is_best_seller.checked = Boolean(product.is_best_seller);
     form.elements.remove_image.checked = false;
