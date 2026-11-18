@@ -12,3 +12,6 @@ body h1,body h2,body .wraps-heading,body .category-heading,body .hero-wordmark,
 body .intro-caption,body .home-section-title,body .best-heading,
 body .wrap-favourites-intro h2,body .category-menu-heading h2,
 body .soda-heading-stage h1,body .order-button,body .overview-actions strong{font-family:Nority,Arial,'Segoe UI Emoji',sans-serif!important;font-weight:400!important}
+
+/* The info symbol stays a conventional letter in every menu section. */
+body .ingredient-info{font-family:'Times New Roman',serif!important;font-weight:700!important;font-style:normal!important}
