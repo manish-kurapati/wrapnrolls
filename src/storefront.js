@@ -61,8 +61,7 @@ function makeSelectable(element, product) {
     button.className = 'ingredient-info';
     button.textContent = 'i';
     const picture = element.querySelector('.menu-picture');
-    const sodaHeading = category === 'sodas' ? element.querySelector('h3, h4') : null;
-    if (sodaHeading) sodaHeading.append(button);
+    if (category === 'sodas') element.append(button);
     else if (picture) {
       picture.removeAttribute('aria-hidden');
       picture.append(button);

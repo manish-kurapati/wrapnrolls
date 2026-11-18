@@ -78,9 +78,10 @@ body,button,input,select,textarea{font-family:'Roc Grotesk',Arial,sans-serif}
 .site-footer a[href^="tel:"],.site-footer a[href^="mailto:"]{font-family:'Roc Grotesk',Arial,sans-serif!important;font-weight:700}
 .site-footer::before{content:none!important;display:none!important}
 
-/* Keep the soda ingredient control beside each drink name at every width. */
-.soda-page .drink-info h3,.soda-page .alani-card h4{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-.soda-page .ingredient-info{flex:none;width:29px;height:29px;margin:0;padding:0;border:1px solid #42191f;border-radius:7px;background:#f8c638;color:#42191f;box-shadow:2px 3px 0 #42191f;font-size:17px;line-height:1}
+/* A quiet, consistent ingredients control in each soda card's top corner. */
+.soda-page .dirty-menu-row,.soda-page .alani-card{position:relative}
+.soda-page .ingredient-info{position:absolute;top:14px;right:14px;z-index:2;width:29px;height:29px;margin:0;padding:0;border:2px solid #f8c638;border-radius:50%;background:transparent;color:#f8c638;box-shadow:none;font-size:17px;line-height:1}
+.soda-page .ingredient-info:hover{background:#f8c638;color:#42191f}
 
 @media(max-width:700px){
  .wrap-video-hero{display:flex!important;flex-direction:column;align-items:center;gap:14px;min-height:0;padding:22px 6vw 42px}
