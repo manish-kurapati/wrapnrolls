@@ -40,7 +40,4 @@ video.addEventListener('error', reveal);
 loader.querySelector('#skip').addEventListener('click', finish);
 document.addEventListener('visibilitychange', () => { if (document.hidden) finish(); });
 
-let arrivingFromAnotherPage = false;
-try { arrivingFromAnotherPage = !!sessionStorage.getItem('wrap-page-wave'); } catch {}
-if (arrivingFromAnotherPage) reveal();
-else start();
+start();
