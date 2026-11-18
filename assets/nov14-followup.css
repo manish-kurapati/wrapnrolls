@@ -1,4 +1,4 @@
-/* November follow-up: preserve the supplied Nority and Roc Grotesk brand type. */
+/* November follow-up: use the supplied brand type across the site. */
 body,button,input,select,textarea{font-family:'Roc Grotesk',Arial,sans-serif}
 .wraps-heading,.category-heading,.soda-heading-stage h1,.best-heading,.wrap-favourites-intro h2,.category-menu-heading h2{font-family:Nority,sans-serif!important;font-weight:400}
 
@@ -75,7 +75,7 @@ body,button,input,select,textarea{font-family:'Roc Grotesk',Arial,sans-serif}
 
 /* Keep the footer clear beneath the shared order call to action. */
 .site-footer{position:relative;margin-top:0;background:#d13e26!important}
-.site-footer a[href^="tel:"],.site-footer a[href^="mailto:"]{font-family:Arial,sans-serif!important;font-weight:700}
+.site-footer a[href^="tel:"],.site-footer a[href^="mailto:"]{font-family:'Roc Grotesk',Arial,sans-serif!important;font-weight:700}
 .site-footer::before{content:none!important;display:none!important}
 
 @media(max-width:700px){

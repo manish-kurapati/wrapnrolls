@@ -1,6 +1,13 @@
-/* The supplied Nority demo outlines cut through every display glyph in Chrome.
-   Use the bundled licensed display fallback until a production Nority file is supplied. */
-@font-face{font-family:Nority;src:url('fonts/lilita-one.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
-@font-face{font-family:'Roc Grotesk';src:url('fonts/roc-grotesk-regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-002C,U+002E-003F,U+0041-10FFFF}
-/* The bold demo files have the same cut glyphs; browsers synthesize bold from regular. */
-@font-face{font-family:'Lilita One';src:url('fonts/lilita-one.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+/* Use the supplied Roc faces for letters and numbers. The demo fonts turn some
+   punctuation into ornaments, so symbols use the system fallback below. */
+@font-face{font-family:'Roc Grotesk';src:url('fonts/roc-grotesk-regular.otf') format('opentype');font-weight:400 500;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0041-005A,U+0061-007A}
+@font-face{font-family:'Roc Grotesk';src:url('fonts/roc-grotesk-bold.otf') format('opentype');font-weight:600 900;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0041-005A,U+0061-007A}
+@font-face{font-family:'Roc Grotesk Extra Wide';src:url('fonts/roc-grotesk-extra-wide.otf') format('opentype');font-weight:400 500;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0041-005A,U+0061-007A}
+@font-face{font-family:'Roc Grotesk Extra Wide';src:url('fonts/roc-grotesk-extra-wide-bold.otf') format('opentype');font-weight:600 900;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0041-005A,U+0061-007A}
+
+/* Keep public pages and the admin interface on the same brand fonts. */
+body,body *{font-family:'Roc Grotesk',Arial,'Segoe UI Emoji',sans-serif!important}
+body h1,body h2,body .wraps-heading,body .category-heading,body .hero-wordmark,
+body .intro-caption,body .home-section-title,body .best-heading,
+body .wrap-favourites-intro h2,body .category-menu-heading h2,
+body .soda-heading-stage h1,body .order-button,body .overview-actions strong{font-family:'Roc Grotesk',Arial,'Segoe UI Emoji',sans-serif!important;font-weight:700!important}
