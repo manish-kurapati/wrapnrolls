@@ -1,14 +1,46 @@
-const $=id=>document.getElementById(id),clamp=x=>Math.max(0,Math.min(1,x)),smooth=x=>{x=clamp(x);return x*x*(3-2*x)},ease=x=>1-Math.pow(1-clamp(x),3),reduced=matchMedia('(prefers-reduced-motion: reduce)');let raf=0,start=0,playing=false,wiping=false,waveToken=0;
-const ids=['flatbread','lettuce','tomato','sticks','onion','sauce','inside-fill','folds','food','bread-body','clip-shape','rim','sparkles','shadow','status','count','progress'];const el=Object.fromEntries(ids.map(id=>[id,$(id)]));
-// The same thin tortilla changes shape continuously from a flat crescent into the rolled shell.
-const flat=[64,250,100,264,145,271,180,271,215,271,262,263,296,250,287,284,232,296,180,296,127,296,73,282,64,250];
-const rolled=[116,174,140,187,158,210,181,217,205,202,225,183,244,174,236,229,224,284,215,305,190,321,162,321,146,305];
-function shell(p){const a=flat.map((v,i)=>v+(rolled[i]-v)*p);return `M${a[0]} ${a[1]}C${a.slice(2,8).join(' ')}C${a.slice(8,14).join(' ')}C${a.slice(14,20).join(' ')}C${a.slice(20).join(' ')}Z`}
-function drop(node,t,at,rotation=0){let p=clamp((t-at)/420),y=p<.72?-410*(1-Math.pow(p/.72,2)):-Math.sin((p-.72)/.28*Math.PI)*12;node.style.opacity=t<at?'0':'1';node.setAttribute('transform',`translate(0 ${y}) rotate(${rotation*(1-p)} 180 220)`)}
-function draw(t){let f=smooth((t-1840)/680),tilt=-16*smooth((t-2500)/300),hop=(t>2750&&t<3090)?-Math.sin((t-2750)/340*Math.PI)*18:0;el.food.setAttribute('transform',`translate(0 ${hop}) rotate(${tilt} 180 220)`);drop(el.flatbread,t,0,-12);el.flatbread.style.opacity=String(1-smooth((t-1920)/500));drop(el.lettuce,t,520,-15);drop(el.tomato,t,870,17);drop(el.sticks,t,1150,-12);drop(el.onion,t,1370,20);el['inside-fill'].setAttribute('transform',`translate(0 ${-66*f}) scale(${1-.04*f} 1)`);el.sauce.style.opacity=t>1560?'1':'0';el.sauce.style.strokeDasharray='150';el.sauce.style.strokeDashoffset=String(150*(1-clamp((t-1560)/280)));el.folds.style.opacity=t<1840?'0':'1';let d=shell(f);el['bread-body'].setAttribute('d',d);el['clip-shape'].setAttribute('d',d);el.rim.style.opacity=String(f);el.sparkles.style.opacity=String(t>2700?Math.sin(clamp((t-2700)/700)*Math.PI):0);el.shadow.setAttribute('rx',String(80-14*f));el.shadow.style.opacity=String(.18*(1+hop/50));let text=t<520?'WARMING UP THE TORTILLA…':t<1560?'DROPPING IN THE GOOD STUFF…':t<2650?'TUCKING. FOLDING. ROLLING…':'READY TO ROLL!';el.status.textContent=text;el.count.textContent=(t<520?'01':t<1560?'02':t<2650?'03':'04')+' / 04';el.progress.style.transform=`scaleX(${clamp(t/3350)})`}
-async function waveReveal(action){if(wiping)return;wiping=true;try{if(window.WrapPageTransition)await window.WrapPageTransition.reveal(action);else action()}finally{wiping=false}}
-function reveal(){document.querySelectorAll('header,main,footer').forEach(n=>n.inert=false);playing=false;cancelAnimationFrame(raf);$('loader').style.display='none';document.body.classList.remove('loading');document.body.classList.add('after-intro')}
-function skip(){if(!playing)return;playing=false;cancelAnimationFrame(raf);if(reduced.matches)reveal();else waveReveal(reveal)}
-function tick(now){if(!playing)return;const t=now-start;draw(Math.min(t,3350));if(t>=3350){playing=false;waveReveal(reveal);return}raf=requestAnimationFrame(tick)}
-function play(){if(wiping)return;cancelAnimationFrame(raf);window.scrollTo({top:0,behavior:'instant'});document.body.classList.remove('after-intro');if(reduced.matches){reveal();return}document.querySelectorAll('header,main,footer').forEach(n=>n.inert=true);document.body.classList.add('loading');$('loader').style.display='grid';draw(0);playing=true;start=performance.now();raf=requestAnimationFrame(tick)}
-$('skip').addEventListener('click',skip);document.querySelectorAll('[data-replay]').forEach(b=>b.addEventListener('click',play));document.querySelectorAll('[data-wave-link]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();const target=$(a.hash.slice(1));const go=()=>{target.scrollIntoView({behavior:'instant',block:'start'});history.replaceState(null,'',a.hash)};if(reduced.matches)go();else waveReveal(go)}));document.addEventListener('visibilitychange',()=>{if(document.hidden&&playing)skip()});let routeArrival=false;try{routeArrival=!!sessionStorage.getItem('wrap-page-wave')}catch{}if(routeArrival)reveal();else play();
+const loader = document.getElementById('loader');
+const video = loader.querySelector('.intro-wrap-video');
+const progress = loader.querySelector('#progress');
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let timeout;
+let finished = false;
+
+function reveal() {
+  if (finished) return;
+  finished = true;
+  clearTimeout(timeout);
+  video.pause();
+  document.querySelectorAll('header, main, footer').forEach(node => { node.inert = false; });
+  loader.hidden = true;
+  document.body.classList.remove('loading');
+  document.body.classList.add('after-intro');
+}
+
+function finish() {
+  if (finished) return;
+  if (window.WrapPageTransition && !reduceMotion.matches) {
+    window.WrapPageTransition.reveal(reveal).catch(reveal);
+  } else reveal();
+}
+
+function start() {
+  if (reduceMotion.matches) { reveal(); return; }
+  document.querySelectorAll('header, main, footer').forEach(node => { node.inert = true; });
+  loader.hidden = false;
+  video.currentTime = 0;
+  video.play().catch(reveal);
+  timeout = setTimeout(finish, 12000);
+}
+
+video.addEventListener('timeupdate', () => {
+  if (video.duration) progress.style.transform = `scaleX(${Math.min(1, video.currentTime / video.duration)})`;
+});
+video.addEventListener('ended', finish);
+video.addEventListener('error', reveal);
+loader.querySelector('#skip').addEventListener('click', finish);
+document.addEventListener('visibilitychange', () => { if (document.hidden) finish(); });
+
+let arrivingFromAnotherPage = false;
+try { arrivingFromAnotherPage = !!sessionStorage.getItem('wrap-page-wave'); } catch {}
+if (arrivingFromAnotherPage) reveal();
+else start();

@@ -1,4 +1,6 @@
-@font-face{font-family:Nority;src:url('fonts/lilita-one.ttf') format('truetype');font-weight:400;font-display:swap;unicode-range:U+0000-0023,U+0026-2018,U+201A-10FFFF}
-/* The supplied Roc files have damaged glyphs; the CSS font stacks fall back to Arial. */
-@font-face{font-family:Roll;src:url('fonts/lilita-one.ttf') format('truetype');font-display:swap;unicode-range:U+0000-0023,U+0026-2018,U+201A-10FFFF}
-@font-face{font-family:'Lilita One';src:url('fonts/lilita-one.ttf') format('truetype');font-display:swap;unicode-range:U+0000-0023,U+0026-2018,U+201A-10FFFF}
+/* The supplied Nority demo outlines cut through every display glyph in Chrome.
+   Use the bundled licensed display fallback until a production Nority file is supplied. */
+@font-face{font-family:Nority;src:url('fonts/lilita-one.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Roc Grotesk';src:url('fonts/roc-grotesk-regular.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-002C,U+002E-003F,U+0041-10FFFF}
+/* The bold demo files have the same cut glyphs; browsers synthesize bold from regular. */
+@font-face{font-family:'Lilita One';src:url('fonts/lilita-one.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}

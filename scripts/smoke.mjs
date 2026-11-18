@@ -35,11 +35,13 @@ await page.route('**/rest/v1/products?**', async route => {
 });
 
 await open('wraps.html');
-await count('#wrap-favourites .menu-card', 1, 'Wrap Best Seller shortlist');
+const specialWrapCount = await page.evaluate(() => window.WRAP_MENU_PRODUCTS.filter(product => product.subcategory === 'special').length);
+await count('#wrap-favourites .menu-card', specialWrapCount, 'Signature wraps');
+await count('.category-menu:not([hidden]) .category-card', specialWrapCount, 'Signature wraps shown by default');
 await count('#wrap-favourites .menu-picture img', 0, 'Wrap photos cleared');
-await page.locator('#wrap-favourites .menu-card').click({ position: { x: 30, y: 30 } });
+await page.locator('.category-menu:not([hidden]) .category-card').first().click({ position: { x: 30, y: 30 } });
 if (await page.locator('.ingredients-dialog').evaluate(dialog => dialog.open)) throw new Error('Card click opened ingredients without the info button');
-await page.locator('#wrap-favourites .ingredient-info').click();
+await page.locator('.category-menu:not([hidden]) .ingredient-info').first().click();
 if (!(await page.locator('.ingredients-dialog').evaluate(dialog => dialog.open))) throw new Error('Info button did not open ingredients');
 await page.locator('.ingredients-close').click();
 if (process.env.SMOKE_SCREENSHOTS) {
@@ -55,10 +57,12 @@ await page.evaluate(() => {
   document.querySelector('[data-wrap-filter="special"]').click();
 });
 await countSelectedCategory('New wrap stays in Special Wraps');
-await count('#wrap-favourites .menu-card', 1, 'Wrap shortlist stays selected');
+await count('#wrap-favourites .menu-card', specialWrapCount, 'Signature wraps stay selected');
 
 await open('sides.html');
-await count('[data-menu-favourites] .menu-grid .menu-card', 1, 'Side Best Seller shortlist');
+const regularSideCount = await page.evaluate(() => window.WRAP_MENU_PRODUCTS.filter(product => product.subcategory !== 'breakfast').length);
+await count('[data-menu-favourites] .menu-grid .menu-card', regularSideCount, 'Regular sides');
+await count('.category-menu:not([hidden]) .category-card', regularSideCount, 'Regular sides shown by default');
 await count('[data-menu-favourites] .menu-picture img', 0, 'Side photos cleared');
 await count('[data-menu-favourites] .text-menu-item, [data-menu-favourites] .category-subheading', 0, 'Extra shrimp, salad and dessert block removed');
 if (process.env.SMOKE_SCREENSHOTS) {
@@ -74,7 +78,7 @@ await page.evaluate(() => {
   document.querySelector('[data-wrap-filter="regular"]').click();
 });
 await countSelectedCategory('New side stays in Regular Sides');
-await count('[data-menu-favourites] .menu-grid .menu-card', 1, 'Side shortlist stays selected');
+await count('[data-menu-favourites] .menu-grid .menu-card', regularSideCount, 'Regular sides stay selected');
 
 await open('burgers.html');
 await count('.menu-section .menu-grid .menu-card', 4, 'Burger cards');
@@ -103,14 +107,14 @@ await page.route(priceRoute, async route => {
   await route.fulfill({ response, json: data });
 });
 await open('wraps.html');
-const veggie = page.locator('[data-product-slug="veggie"]');
+const veggie = page.locator('.menu-card[data-product-slug="veggie"]');
 if (!(await veggie.textContent()).includes('$10.40') || !(await veggie.textContent()).includes('Wrap deal')) throw new Error('Wrap offer did not render');
 await page.evaluate(() => document.querySelector('[data-wrap-filter="special"]').click());
-const veggieCategory = page.locator('.category-card').filter({ hasText: 'The House Veggie Roll' });
+const veggieCategory = page.locator('.category-card').filter({ hasText: 'The House Veggie Wrap' });
 if (!(await veggieCategory.textContent()).includes('$10.40') || !(await veggieCategory.textContent()).includes('Wrap deal')) throw new Error('Wrap category offer did not render');
 await open('sides.html');
-if (!(await page.locator('[data-product-slug="regular-fries"] .menu-price').textContent()).includes('$5.80')) throw new Error('Side shortlist offer price did not update');
-if (!(await page.locator('[data-product-slug="regular-fries"] .product-offer-tag').textContent()).includes('Fries deal')) throw new Error('Side offer badge did not render');
+if (!(await page.locator('.menu-card[data-product-slug="regular-fries"] .menu-price').textContent()).includes('$5.80')) throw new Error('Side shortlist offer price did not update');
+if (!(await page.locator('.menu-card[data-product-slug="regular-fries"] .product-offer-tag').textContent()).includes('Fries deal')) throw new Error('Side offer badge did not render');
 await page.evaluate(() => document.querySelector('[data-wrap-filter="regular"]').click());
 const friesCard = page.locator('.category-card').filter({ hasText: 'Regular Fries' }).first();
 if (!(await friesCard.textContent()).includes('$5.80')) throw new Error('Side category offer price did not update');
@@ -138,6 +142,7 @@ await page.route(settingsRoute, async route => {
 await open('wraps.html');
 await page.locator('[data-order-link]').click();
 await page.waitForURL('**/order.html');
+await page.waitForFunction(() => document.querySelector('[data-provider="uber_eats_url"]')?.href === 'https://example.com/uber');
 await page.waitForFunction(() => [...document.querySelectorAll('[data-provider]')].every(link => !link.hidden));
 for (const [provider, url] of Object.entries({
   uber_eats_url: 'https://example.com/uber',

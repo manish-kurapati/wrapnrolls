@@ -62,7 +62,13 @@ function makeSelectable(element, product) {
     button.type = 'button';
     button.className = 'ingredient-info';
     button.textContent = 'i';
-    (element.querySelector('.menu-card-body, .drink-info > div') || element.querySelector('h4')?.parentElement || element).append(button);
+    const picture = element.querySelector('.menu-picture');
+    if (picture) {
+      picture.removeAttribute('aria-hidden');
+      picture.append(button);
+    } else {
+      (element.querySelector('.drink-info > div') || element.querySelector('h4')?.parentElement || element).append(button);
+    }
   }
   button.setAttribute('aria-label', `Ingredients for ${product.name}`);
 }

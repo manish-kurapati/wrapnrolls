@@ -20,8 +20,8 @@ $('.dashboard-header h1').innerHTML = `${pageTitles[page][0]}<span class="title-
 $('.dashboard-header p').textContent = pageTitles[page][1];
 
 const sections = {
-  wraps: [['special', 'Special Wraps'], ['breakfast', 'Breakfast Wraps']],
-  sides: [['regular', 'Regular Sides'], ['breakfast', 'Breakfast Sides']],
+  wraps: [['special', 'Signature Wraps'], ['breakfast', 'Breakfast Favourites']],
+  sides: [['regular', 'Regular Crunch'], ['breakfast', 'Breakfast Crunch']],
   sodas: [['classic', 'Classic Dirty Sodas'], ['alani', 'Alani NU']],
   burgers: [['standard', 'Burgers']]
 };

@@ -84,7 +84,8 @@
    button.className = 'ingredient-info';
    button.textContent = 'i';
    button.setAttribute('aria-label', `Ingredients for ${product.title}`);
-   info.append(button);
+   art.removeAttribute('aria-hidden');
+   art.append(button);
   }
   card.append(art, info);
   return card;
@@ -103,9 +104,15 @@
    empty.textContent = 'No products in this category yet.';
    grid.append(empty);
   }
-  heading.textContent = root.dataset.menuSelection === 'sides'
-   ? (choice === 'breakfast' ? 'Breakfast Crunch' : 'Regular Crunch')
-   : (choice === 'breakfast' ? 'Breakfast Favourites' : 'The Best');
+  if (root.dataset.menuSelection === 'sides') {
+   heading.textContent = choice === 'breakfast' ? 'Breakfast Crunch' : 'Regular Crunch';
+  } else {
+   const wrapIcon = document.createElement('img');
+   wrapIcon.className = 'best-food-icon';
+   wrapIcon.src = 'assets/updates/catering-wraps.png';
+   wrapIcon.alt = '';
+   heading.replaceChildren('The Best ', wrapIcon);
+  }
   favourites.hidden = true;
   panel.hidden = false;
   if (scroll) {

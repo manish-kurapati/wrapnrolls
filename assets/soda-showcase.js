@@ -3,8 +3,8 @@ const hero=document.querySelector('.soda-hero'),show=document.querySelector('.so
 const products=[
  {name:'Sunrise Crush',ingredients:'Strawberry · Peach · 7UP Zero',desc:'Strawberry sweetness meets peach and a bright, fizzy finish.',color:'#f59368',top:'#ffd49c',bg:'#ffefd2',ink:'#d13e26',items:['strawberry','peach','strawberry','peach'],price:'From $5.89',type:'The original line-up'},
  {name:'Midnight Madness',ingredients:'Blue raspberry · Lime · 7UP Zero',desc:'Blue raspberry, a squeeze of lime, and all the sparkle.',color:'#679bc8',top:'#b9dce8',bg:'#edf1e7',ink:'#527e9c',items:['raspberry','lime','raspberry','lime'],price:'From $5.89',type:'The original line-up'},
- {name:'Berry Breeze',ingredients:'Raspberry · Strawberry · Cream · Alani Lime',desc:'A creamy berry swirl with a lively lime finish.',color:'#d37d97',top:'#ffcfdb',bg:'#fff0e8',ink:'#c56579',items:['raspberry','strawberry','lime','cream'],price:'$8.00 · Medium / 20 oz',type:'Alani NU · 19+ only'},
- {name:'Mermaid Fizz',ingredients:'Blue raspberry · Coconut · Cream · Alani Lime',desc:'Blue raspberry and coconut drift into a smooth, creamy sip.',color:'#65b4b7',top:'#c7eddf',bg:'#edf4e9',ink:'#428f91',items:['raspberry','coconut','lime','cream'],price:'$8.00 · Medium / 20 oz',type:'Alani NU · 19+ only'}
+ {name:'Berry Breeze',ingredients:'Raspberry · Strawberry · Cream · Alani Lime',desc:'A creamy berry swirl with a lively lime finish.',color:'#d37d97',top:'#ffcfdb',bg:'#fff0e8',ink:'#c56579',items:['raspberry','strawberry','lime','cream'],price:'$8.00 · Medium / 20 oz',type:'Alani NU · Medium (20 oz) only'},
+ {name:'Mermaid Fizz',ingredients:'Blue raspberry · Coconut · Cream · Alani Lime',desc:'Blue raspberry and coconut drift into a smooth, creamy sip.',color:'#65b4b7',top:'#c7eddf',bg:'#edf4e9',ink:'#428f91',items:['raspberry','coconut','lime','cream'],price:'$8.00 · Medium / 20 oz',type:'Alani NU · Medium (20 oz) only'}
 ];
 const logo=document.querySelector('.soda-header .brand img');
 const logoFiles=['orange','blue','berry','teal'].map(tint=>'assets/logo-'+tint+'.png');

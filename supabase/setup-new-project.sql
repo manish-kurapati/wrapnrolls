@@ -74,10 +74,10 @@ create policy "Admins can delete product images" on storage.objects for delete t
 
 -- The current site menu is the initial catalogue. Replace its images in Admin.
 insert into public.products (slug,name,description,category,subcategory,price,price_medium,price_large,sort_order) values
-('breakfast','Healthy Breakfast Roll','Omelet, bacon, Canadian cheese, lettuce, tomato, red onion and mayo.','wraps','breakfast',11.50,null,null,10),
-('veggie','The House Veggie Roll','Mediterranean chickpea patties, lettuce, tomato, red onion, pickles, tahini and garlic aioli.','wraps','special',13.00,null,null,20),
-('island','Exotic Island Roll','Shrimp, sautéed pineapple, red onion and green pepper, fresh tomato and lettuce, sweet chili and Hawaiian aioli.','wraps','special',15.50,null,null,30),
-('crispy-caesar','The Caesar Roll Crispy Chicken','Crispy chicken, lettuce, bacon, Parmesan cheese and creamy Caesar dressing.','wraps','special',13.50,null,null,40),
+('breakfast','Healthy Breakfast Wrap','Omelet, bacon, Canadian cheese, lettuce, tomato, red onion and mayo.','wraps','breakfast',11.50,null,null,10),
+('veggie','The House Veggie Wrap','Mediterranean chickpea patties, lettuce, tomato, red onion, pickles, tahini and garlic aioli.','wraps','special',13.00,null,null,20),
+('island','Exotic Island Wrap','Shrimp, sautéed pineapple, red onion and green pepper, fresh tomato and lettuce, sweet chili and Hawaiian aioli.','wraps','special',15.50,null,null,30),
+('crispy-caesar','The Caesar Wrap Crispy Chicken','Crispy chicken, lettuce, bacon, Parmesan cheese and creamy Caesar dressing.','wraps','special',13.50,null,null,40),
 ('steak','Loaded Sackville Steak Wrap','Thinly sliced steak, grilled green pepper, onion and mushrooms, Canadian cheese, lettuce, tomato, red onion, pickles, garlic aioli and BBQ dressing.','wraps','special',15.00,null,null,50),
 ('classic-burger','Our Classic Burger','Fresh beef patty, lettuce, tomato, red onion, pickles, ketchup and mayo. Beyond Meat or veggie patty available for +$1.','burgers',null,9.00,null,null,10),
 ('crisp-onion-burger','Crisp Onion Burger','Double fresh beef patties, Canadian cheese, crispy onion, lettuce, tomato, pickles, ketchup and mayo.','burgers',null,14.50,null,null,20),

@@ -1,0 +1,29 @@
+/* Supplied food artwork and a shared intro with the Wraps hero. */
+.loader[hidden]{display:none!important}
+.loader{background:#d13f27}
+.intro-wrap-video{display:block;width:min(80vw,720px);height:min(65svh,600px);object-fit:contain;transform:scale(1.1)}
+.intro-caption{position:absolute;bottom:13%;left:0;right:0;text-align:center;color:#ffefd2;font:400 clamp(24px,4vw,42px)/1 Nority,sans-serif;text-transform:uppercase}
+.homepage .home-feature-image{position:absolute;z-index:0;right:3%;top:15%;width:54%;height:72%;object-fit:contain;filter:drop-shadow(0 20px 12px #42191f38);pointer-events:none}
+.homepage .belief-photo .photo-label{display:inline-block;right:auto;max-width:calc(100% - 40px);padding:8px 12px;background:#ffefd2e8;color:#d13e26;border-radius:12px;text-shadow:none}
+
+/* Each section opens under a curved edge in the colour of the section above. */
+.homepage .home-belief::before,
+.homepage .home-flavour::before,
+.homepage .home-more::before,
+.homepage .home-closing::before{
+  content:'';display:block!important;position:absolute;top:-1px;left:0;right:0;
+  height:80px;background-repeat:no-repeat;background-size:100% 100%;
+  transform:none!important;z-index:2;pointer-events:none;
+}
+.homepage .home-belief::before,
+.homepage .home-more::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath fill='%23d13e26' d='M0 0H1440V34C1200 72 1050 72 900 38S650 4 480 42S200 78 0 34Z'/%3E%3C/svg%3E")}
+.homepage .home-flavour::before,
+.homepage .home-closing::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath fill='%23ffefd2' d='M0 0H1440V34C1200 72 1050 72 900 38S650 4 480 42S200 78 0 34Z'/%3E%3C/svg%3E")}
+.homepage .closing-stage>.home-eyebrow{top:11%}
+
+@media(max-width:700px){
+  .homepage .home-feature-image{position:relative;order:2;top:auto;right:auto;width:100%;height:clamp(240px,35svh,340px);margin:18px 0 0;filter:drop-shadow(0 12px 8px #42191f2e)}
+  .homepage .home-belief::before,.homepage .home-flavour::before,.homepage .home-more::before,.homepage .home-closing::before{height:50px}
+  .intro-wrap-video{width:85vw;height:min(56svh,440px)}
+  .intro-caption{bottom:17%;font-size:26px}
+}
