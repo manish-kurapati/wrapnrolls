@@ -5,7 +5,7 @@ body,button,input,select,textarea{font-family:'Roc Grotesk',Arial,sans-serif}
 /* The preparation videos have transparent edges and no visible frame. */
 .wrap-video-hero{grid-template-columns:minmax(240px,.8fr) minmax(0,1.2fr);isolation:isolate;overflow:hidden}
 .wrap-hero-film{inset:0 0 0 25%!important;width:75%!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;overflow:visible!important}
-.wrap-hero-film video{object-fit:contain!important;transform:scale(1.25)!important}
+.wrap-hero-film video{object-fit:contain!important;transform:scale(1.35)!important}
 .wrap-hero-copy.wrap-copy-left{grid-column:1;z-index:2;max-width:360px}
 .wrap-hero-copy.wrap-copy-right{display:none!important}
 
@@ -60,16 +60,16 @@ body,button,input,select,textarea{font-family:'Roc Grotesk',Arial,sans-serif}
 .soda-page .soda-order .order-button{background:#ffefd2}
 .category-menu-note{font-size:clamp(16px,1.5vw,20px)!important;line-height:1.55}
 
-/* A cream wave makes the footer edge visible on every page. */
+/* Keep the footer clear beneath the shared order call to action. */
 .site-footer{position:relative;margin-top:0;background:#d13e26!important}
 .site-footer a[href^="tel:"],.site-footer a[href^="mailto:"]{font-family:Arial,sans-serif!important;font-weight:700}
-.site-footer::before{content:'';display:block!important;position:absolute;left:0;right:0;top:-29px;height:30px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 30' preserveAspectRatio='none'%3E%3Cpath fill='%23d13e26' d='M0 15C180 29 300 28 470 15S790 0 960 15S1250 29 1440 15V30H0Z'/%3E%3Cpath fill='%23ffefd2' d='M0 7C180 21 300 20 470 7S790 -8 960 7S1250 21 1440 7V13C1250 27 1100 21 930 13S620 6 450 19S160 30 0 13Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;pointer-events:none}
+.site-footer::before{content:none!important;display:none!important}
 
 @media(max-width:700px){
  .wrap-video-hero{display:flex!important;flex-direction:column;align-items:center;gap:14px;min-height:0;padding:22px 6vw 42px}
  .wrap-hero-copy.wrap-copy-left{width:100%;max-width:100%;text-align:center}
  .wrap-hero-film{position:relative!important;inset:auto!important;order:2;width:100%!important;height:clamp(235px,64vw,330px)!important;overflow:hidden!important}
- .wrap-hero-film video{width:100%;height:100%;transform:scale(1.45)!important}
+ .wrap-hero-film video{width:100%;height:100%;transform:scale(1.55)!important}
  .wraps-intro .floating-fillings{width:min(92vw,340px)}
  .wraps-intro .title-cheese{width:32px;height:32px}
  .title-ingredient{width:36px;height:36px}
@@ -84,7 +84,7 @@ body,button,input,select,textarea{font-family:'Roc Grotesk',Arial,sans-serif}
  .menu-picture>.product-offer-tag,.category-card-art>.product-offer-tag{top:7px;left:7px}
  .menu-picture>.best-seller-tag,.category-card-art>.best-seller-tag{top:38px;left:7px}
  .order-button{font-size:20px;padding:14px 22px}
- .site-footer{margin-top:0}.site-footer::before{top:-24px;height:25px}
+ .site-footer{margin-top:0}
 }
 @media(max-width:390px){.title-ingredient{width:30px;height:30px}.wraps-intro .filling-lettuce,.wraps-intro .filling-tomato{width:23px;height:23px}}
 @media(prefers-reduced-motion:reduce){.title-ingredient,.soda-heading-stage h1{animation:none!important}}
