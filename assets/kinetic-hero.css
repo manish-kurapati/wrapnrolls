@@ -9,14 +9,14 @@
 .kinetic-stage{position:relative;flex:1;min-height:700px;height:calc(100svh - 105px);max-height:1100px;display:flex;flex-direction:column;justify-content:center;isolation:isolate;padding:32px 0 100px}
 .product-bands{position:absolute;left:0;right:0;z-index:0;display:grid;gap:12px;overflow:hidden}
 .bands-top{top:5%}.bands-bottom{bottom:16%}
-.product-row{overflow:hidden;width:100%;font:400 var(--menu-size)/1.12 Nority,sans-serif;text-transform:uppercase;letter-spacing:-.025em}
+.product-row{overflow:hidden;width:100%;font:400 var(--menu-size)/1.12 Climate Crisis,sans-serif;text-transform:uppercase;letter-spacing:-.025em}
 .product-track{display:flex;width:max-content;animation:menu-flow var(--duration,50s) linear infinite;will-change:transform}
 .product-run{display:flex;flex-shrink:0;align-items:center;gap:.45em;padding-right:.45em;white-space:nowrap}
 .product-run b{font-size:.58em;font-weight:400;color:#ffefd2}
 .to-right .product-track{animation-direction:reverse}
 .kinetic-brand{position:absolute;left:0;right:0;top:43%;transform:translateY(-50%);z-index:1;text-align:center;pointer-events:none}
-.kinetic-kicker{font:700 10px/1.4 'Roc Grotesk',Arial,sans-serif;letter-spacing:3px;color:#791e0c;margin:0 0 22px}
-.homepage .kinetic-hero h1{position:static;inset:auto;font:400 var(--brand-size)/.94 Nority,sans-serif;letter-spacing:-.045em;color:#ffefd2;text-align:center;white-space:nowrap;margin:0;transform:none;animation:none;text-shadow:0 4px 0 #b84b2633}
+.kinetic-kicker{font:700 10px/1.4 'Space Grotesk',Arial,sans-serif;letter-spacing:3px;color:#791e0c;margin:0 0 22px}
+.homepage .kinetic-hero h1{position:static;inset:auto;font:400 var(--brand-size)/.94 Climate Crisis,sans-serif;letter-spacing:-.045em;color:#ffefd2;text-align:center;white-space:nowrap;margin:0;transform:none;animation:none;text-shadow:0 4px 0 #b84b2633}
 .homepage .kinetic-hero .kinetic-burger{position:absolute;inset:50% auto auto 50%;width:clamp(260px,31vw,455px);height:auto;margin:0;transform:translate(-50%,-50%);z-index:2;pointer-events:none;rotate:0deg}
 .stack-burger{width:100%;height:auto;overflow:visible;display:block}
 .burger-layer{transform-box:view-box;transform-origin:280px 325px;animation:burger-build 8s cubic-bezier(.45,0,.25,1) infinite;will-change:transform}
@@ -24,8 +24,8 @@
 .kinetic-bottom{position:absolute;left:4vw;right:4vw;bottom:25px;display:flex;gap:24px;align-items:center;justify-content:space-between;z-index:4}
 .kinetic-cta{display:inline-flex;align-items:center;gap:35px;background:#791e0c;color:#ffefd2;border:1px solid #791e0c;border-radius:40px;padding:17px 25px;font-weight:700;font-size:13px;text-decoration:none;transition:background .2s,transform .2s}
 .kinetic-cta:hover{background:#42190c;transform:translateY(-3px)}
-.motion-toggle{background:transparent;color:#791e0c;border:0;border-bottom:1px solid #791e0c80;padding:8px 0;font:12px 'Roc Grotesk',Arial,sans-serif;cursor:pointer}
-.kinetic-note{font:700 9px/1.6 'Roc Grotesk',Arial,sans-serif;letter-spacing:1.5px;max-width:190px;text-align:right}
+.motion-toggle{background:transparent;color:#791e0c;border:0;border-bottom:1px solid #791e0c80;padding:8px 0;font:12px 'Space Grotesk',Arial,sans-serif;cursor:pointer}
+.kinetic-note{font:700 9px/1.6 'Space Grotesk',Arial,sans-serif;letter-spacing:1.5px;max-width:190px;text-align:right}
 .kinetic-hero :is(a,button):focus-visible{outline:3px solid #ffefd2;outline-offset:5px}
 .kinetic-hero.motion-paused :is(.product-track,.burger-layer,.burger-shadow){animation-play-state:paused}
 @keyframes menu-flow{to{transform:translateX(-50%)}}

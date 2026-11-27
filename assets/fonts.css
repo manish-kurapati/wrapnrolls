@@ -1,17 +1,11 @@
-/* The supplied Nority file matches the 1001 Fonts personal-use demo. Limit
-   brand font faces to letters and numbers so punctuation uses the fallback. */
-@font-face{font-family:Nority;src:url('fonts/nority.otf') format('opentype');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0041-005A,U+0061-007A}
-@font-face{font-family:'Roc Grotesk';src:url('fonts/roc-grotesk-regular.otf') format('opentype');font-weight:400 500;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0041-005A,U+0061-007A}
-@font-face{font-family:'Roc Grotesk';src:url('fonts/roc-grotesk-bold.otf') format('opentype');font-weight:600 900;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0041-005A,U+0061-007A}
-@font-face{font-family:'Roc Grotesk Extra Wide';src:url('fonts/roc-grotesk-extra-wide.otf') format('opentype');font-weight:400 500;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0041-005A,U+0061-007A}
-@font-face{font-family:'Roc Grotesk Extra Wide';src:url('fonts/roc-grotesk-extra-wide-bold.otf') format('opentype');font-weight:600 900;font-style:normal;font-display:swap;unicode-range:U+0030-0039,U+0041-005A,U+0061-007A}
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis:YEAR@1979&family=Space+Grotesk:wght@300..700&display=swap');
+@font-face{font-family:'Lilita One';src:url('fonts/lilita-one.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+:root{--font-display:'Climate Crisis',sans-serif;--font-body:'Space Grotesk',sans-serif}
 
 /* Keep public pages and the admin interface on the same brand fonts. */
-body,body *{font-family:'Roc Grotesk',Arial,'Segoe UI Emoji',sans-serif!important}
-body h1,body h2,body .wraps-heading,body .category-heading,body .hero-wordmark,
-body .intro-caption,body .home-section-title,body .best-heading,
-body .wrap-favourites-intro h2,body .category-menu-heading h2,
-body .soda-heading-stage h1,body .order-button,body .overview-actions strong{font-family:Nority,Arial,'Segoe UI Emoji',sans-serif!important;font-weight:400!important}
+body,body *{font-family:var(--font-body)!important;font-optical-sizing:auto}
+body :is(h1,h2,h3,h4,.wraps-heading,.category-heading,.hero-wordmark,.intro-caption,.home-section-title,.best-heading),
+body :is(h1,h2,h3,h4,.wraps-heading,.category-heading,.hero-wordmark,.intro-caption,.home-section-title,.best-heading) :is(span,em,strong,b){font-family:var(--font-display)!important;font-weight:400!important;font-style:normal;font-variation-settings:'YEAR' 1979}
 
 /* The info symbol stays a conventional letter in every menu section. */
 body .ingredient-info{font-family:'Times New Roman',serif!important;font-weight:700!important;font-style:normal!important}

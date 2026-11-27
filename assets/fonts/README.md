@@ -1,1 +1,1 @@
-Brand fonts supplied by the user. The Nority file is byte for byte identical to the personal-use demo at 1001 Fonts. It is used for display headings, with Roc Grotesk regular and bold for body text across the site and admin. Decorative punctuation glyphs are excluded with CSS unicode ranges, allowing system punctuation. Replace demo editions with licensed webfonts before commercial publication.
+Climate Crisis and Space Grotesk are loaded from Google Fonts in `assets/fonts.css`. Lilita One and its license remain in this directory unchanged.

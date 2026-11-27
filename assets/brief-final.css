@@ -2,7 +2,7 @@
 .loader[hidden]{display:none!important}
 .loader{background:#d13f27}
 .intro-wrap-video{display:block;width:min(80vw,720px);height:min(65svh,600px);object-fit:contain;transform:scale(1.1)}
-.intro-caption{position:absolute;bottom:13%;left:0;right:0;text-align:center;color:#ffefd2;font:400 clamp(24px,4vw,42px)/1 Nority,sans-serif;text-transform:uppercase}
+.intro-caption{position:absolute;bottom:13%;left:0;right:0;text-align:center;color:#ffefd2;font:400 clamp(24px,4vw,42px)/1 Climate Crisis,sans-serif;text-transform:uppercase}
 .homepage .home-feature-image{position:absolute;z-index:0;right:3%;top:15%;width:54%;height:72%;object-fit:contain;filter:drop-shadow(0 20px 12px #42191f38);pointer-events:none}
 .homepage .belief-photo .photo-label{display:inline-block;right:auto;max-width:calc(100% - 40px);padding:8px 12px;background:#ffefd2e8;color:#d13e26;border-radius:12px;text-shadow:none}
 

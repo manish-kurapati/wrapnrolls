@@ -107,10 +107,11 @@
   if (root.dataset.menuSelection === 'sides') {
    heading.textContent = choice === 'breakfast' ? 'Breakfast Crunch' : 'Regular Crunch';
   } else {
-   const wrapIcon = document.createElement('img');
+   const wrapIcon = document.createElement('span');
    wrapIcon.className = 'best-food-icon';
-   wrapIcon.src = 'assets/updates/best-wrap-realistic.png';
-   wrapIcon.alt = '';
+   wrapIcon.setAttribute('aria-hidden', 'true');
+   const illustratedWrap = document.querySelector('.wraps-intro .wrap-one svg');
+   if (illustratedWrap) wrapIcon.append(illustratedWrap.cloneNode(true));
    heading.replaceChildren('The Best ', wrapIcon);
   }
   favourites.hidden = true;

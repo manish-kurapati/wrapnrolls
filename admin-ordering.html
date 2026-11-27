@@ -71,9 +71,9 @@
               <label class="field-span-2">Ingredients<textarea name="ingredients" rows="3" placeholder="List the ingredients customers should see when they select this product."></textarea></label>
               <label>Regular price ($)<input name="price" type="number" min="0" max="9999.99" step="0.01" required placeholder="0.00"></label>
               <label>Discount (%)<input name="offer_percent" type="number" min="0.01" max="100" step="0.01" placeholder="Optional"><small>Applies to all prices for this product, including soda sizes.</small></label>
-              <label>Offer badge text<input name="offer_label" maxlength="32" placeholder="e.g. Lunch special"><small>Optional. Without a custom label, the badge shows the discount percentage.</small></label>
-              <label>Medium price ($)<input name="price_medium" type="number" min="0" max="9999.99" step="0.01" placeholder="Optional"></label>
-              <label>Large price ($)<input name="price_large" type="number" min="0" max="9999.99" step="0.01" placeholder="Optional"></label>
+              <label data-soda-only>Offer badge text<input name="offer_label" maxlength="32" placeholder="e.g. Lunch special"><small>Optional. Without a custom label, the badge shows the discount percentage.</small></label>
+              <label data-soda-only>Medium price ($)<input name="price_medium" type="number" min="0" max="9999.99" step="0.01" placeholder="Optional"></label>
+              <label data-soda-only>Large price ($)<input name="price_large" type="number" min="0" max="9999.99" step="0.01" placeholder="Optional"></label>
             </div>
             <div class="image-field"><label for="product-image">Add product image <small>JPG, PNG, WebP, GIF, AVIF or BMP · Max 5 MB</small></label><div class="image-input"><img id="image-preview" alt="Current product image" hidden><input id="product-image" name="image" type="file" accept="image/*"></div><label class="check-row"><input name="remove_image" type="checkbox"> Remove current image</label></div>
             <label class="check-row visibility-row"><input name="is_best_seller" type="checkbox"><span><strong>Best Seller</strong><small>Show a Best Seller badge and add this product to the Wraps or Sides shortlist.</small></span></label>

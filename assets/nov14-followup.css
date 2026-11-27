@@ -1,6 +1,6 @@
 /* November follow-up: use the supplied brand type across the site. */
-body,button,input,select,textarea{font-family:'Roc Grotesk',Arial,sans-serif}
-.wraps-heading,.category-heading,.soda-heading-stage h1,.best-heading,.wrap-favourites-intro h2,.category-menu-heading h2{font-family:Nority,sans-serif!important;font-weight:400}
+body,button,input,select,textarea{font-family:'Space Grotesk',Arial,sans-serif}
+.wraps-heading,.category-heading,.soda-heading-stage h1,.best-heading,.wrap-favourites-intro h2,.category-menu-heading h2{font-family:Climate Crisis,sans-serif!important;font-weight:400}
 
 /* The preparation videos have transparent edges and no visible frame. */
 .wrap-video-hero{grid-template-columns:minmax(240px,.8fr) minmax(0,1.2fr);isolation:isolate;overflow:hidden}
@@ -57,25 +57,25 @@ body,button,input,select,textarea{font-family:'Roc Grotesk',Arial,sans-serif}
 .category-card-info{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-height:118px;padding-right:18px}
 .category-card-info h3{min-height:2.8em}
 .category-card-price{margin-top:auto;white-space:normal}
-.menu-card .ingredient-info,.category-card .ingredient-info{position:absolute!important;top:11px!important;right:11px!important;left:auto!important;bottom:auto!important;z-index:5;display:grid;place-items:center;width:29px;height:29px;padding:0;border:1px solid #42191f;border-radius:7px;background:#f8c638;color:#42191f;font:800 17px/1 'Roc Grotesk',Arial,sans-serif;box-shadow:2px 3px 0 #42191f;cursor:pointer}
+.menu-card .ingredient-info,.category-card .ingredient-info{position:absolute!important;top:11px!important;right:11px!important;left:auto!important;bottom:auto!important;z-index:5;display:grid;place-items:center;width:29px;height:29px;padding:0;border:1px solid #42191f;border-radius:7px;background:#f8c638;color:#42191f;font:800 17px/1 'Space Grotesk',Arial,sans-serif;box-shadow:2px 3px 0 #42191f;cursor:pointer}
 .menu-picture>.product-offer-tag,.category-card-art>.product-offer-tag{top:11px;left:11px;right:auto}
 .menu-picture>.best-seller-tag,.category-card-art>.best-seller-tag{top:47px;left:11px;right:auto}
 
 /* A shared order call to action, including Sides and Dirty Sodas. */
 .order-area{background:transparent!important;text-align:center;padding:28px 15px 36px;margin:0 auto!important}
-.order-button{display:inline-flex;align-items:center;justify-content:center;gap:18px;border:2px solid #42191f;border-radius:999px;background:#ffefd2;color:#42191f;padding:15px 25px;font:400 23px/1.1 Nority,sans-serif;box-shadow:0 5px 0 #42191f;text-decoration:none;white-space:nowrap}
+.order-button{display:inline-flex;align-items:center;justify-content:center;gap:18px;border:2px solid #42191f;border-radius:999px;background:#ffefd2;color:#42191f;padding:15px 25px;font:400 23px/1.1 Climate Crisis,sans-serif;box-shadow:0 5px 0 #42191f;text-decoration:none;white-space:nowrap}
 .order-button .ui-arrow{width:18px;height:18px;flex:none}
 .order-button:hover{transform:translateY(-2px);box-shadow:0 7px 0 #42191f}
 .soda-page .soda-order{margin-top:34px}
 .soda-page .soda-order .order-area{padding-bottom:0}
-.soda-page .soda-disclaimer,.soda-page .soda-order .trademark-note{color:#ffefd2;font:400 12px/1.6 'Roc Grotesk',Arial,sans-serif;margin:10px auto;max-width:720px}
+.soda-page .soda-disclaimer,.soda-page .soda-order .trademark-note{color:#ffefd2;font:400 12px/1.6 'Space Grotesk',Arial,sans-serif;margin:10px auto;max-width:720px}
 .soda-page .soda-order .trademark-note{margin-top:4px}
 .soda-page .soda-order .order-button{background:#ffefd2}
 .category-menu-note{font-size:clamp(16px,1.5vw,20px)!important;line-height:1.55}
 
 /* Keep the footer clear beneath the shared order call to action. */
 .site-footer{position:relative;margin-top:0;background:#d13e26!important}
-.site-footer a[href^="tel:"],.site-footer a[href^="mailto:"]{font-family:'Roc Grotesk',Arial,sans-serif!important;font-weight:700}
+.site-footer a[href^="tel:"],.site-footer a[href^="mailto:"]{font-family:'Space Grotesk',Arial,sans-serif!important;font-weight:700}
 .site-footer::before{content:none!important;display:none!important}
 
 /* A quiet, consistent ingredients control in each soda card's top corner. */
@@ -109,3 +109,100 @@ body,button,input,select,textarea{font-family:'Roc Grotesk',Arial,sans-serif}
 }
 @media(max-width:390px){.title-ingredient{width:30px;height:30px}.wraps-intro .filling-lettuce,.wraps-intro .filling-tomato{width:23px;height:23px}}
 @media(prefers-reduced-motion:reduce){.title-ingredient,.soda-heading-stage h1{animation:none!important}}
+
+/* Four restaurant photos in the Lower Sackville section. */
+.homepage .home-more-art{
+ display:grid;
+ grid-template-columns:repeat(2,minmax(0,1fr));
+ grid-template-rows:repeat(2,minmax(0,1fr));
+ gap:clamp(8px,1.2vw,16px);
+ width:min(100%,560px);
+ height:auto;
+ aspect-ratio:1;
+ justify-self:center;
+ align-items:stretch;
+}
+.homepage .home-more-art .more-venue{
+ display:block;
+ width:100%;
+ height:100%;
+ min-width:0;
+ object-fit:cover;
+ object-position:center;
+ border:5px solid #ffefd2;
+ border-radius:16px;
+ transform:none;
+}
+@media(max-width:600px){
+ .homepage .home-more{gap:24px}
+ .homepage .home-more-art{width:100%;height:auto}
+ .homepage .home-more-art .more-venue{border-width:3px;border-radius:12px}
+}
+
+/* Food pieces rise gently, slow at the top, then fall back under gravity. */
+.wraps-intro .filling,
+.wraps-intro .title-ingredient,
+#burgers .category-piece,
+#burgers .title-ingredient{
+ pointer-events:none;
+ animation:ingredient-arc var(--float-time,5.6s) infinite;
+ animation-delay:var(--float-delay,0s);
+ will-change:transform;
+}
+.wraps-intro .filling{--rest-rotate:var(--turn,0deg)}
+#burgers .category-piece{--rest-rotate:var(--tilt,0deg)}
+.wraps-intro .title-ingredient,#burgers .title-ingredient{--rest-rotate:0deg}
+.wraps-intro .lettuce-one,#burgers .title-lettuce{--float-time:5.9s;--float-delay:-1.3s;--lift:19px;--drift-x:-5px;--swing:-9deg}
+.wraps-intro .tomato-one,#burgers .title-tomato{--float-time:5.2s;--float-delay:-3.1s;--lift:15px;--drift-x:7px;--swing:12deg}
+.wraps-intro .title-cheese,#burgers .title-cheese{--float-time:6.2s;--float-delay:-2.2s;--lift:22px;--drift-x:5px;--swing:10deg}
+.wraps-intro .wrap-one,#burgers .piece-0{--float-time:6.4s;--float-delay:-.8s;--lift:13px;--drift-x:5px;--swing:-5deg}
+.wraps-intro .wrap-two,#burgers .piece-5{--float-time:5.7s;--float-delay:-3.8s;--lift:16px;--drift-x:-6px;--swing:6deg}
+@keyframes ingredient-arc{
+ 0%{transform:translate3d(0,0,0) rotate(var(--rest-rotate,0deg));animation-timing-function:cubic-bezier(.18,.68,.34,1)}
+ 46%{transform:translate3d(var(--drift-x,5px),calc(-1 * var(--lift,18px)),0) rotate(calc(var(--rest-rotate,0deg) + var(--swing,8deg)));animation-timing-function:cubic-bezier(.6,0,.88,.5)}
+ 100%{transform:translate3d(0,0,0) rotate(var(--rest-rotate,0deg))}
+}
+.wraps-intro .filling-lettuce,.wraps-intro .filling-tomato{
+ display:block;
+ width:clamp(42px,5vw,65px);
+ height:clamp(42px,5vw,65px);
+ object-fit:contain;
+ background:transparent;
+ border:0;
+ border-radius:0;
+ outline:0;
+ box-shadow:none;
+ filter:drop-shadow(0 5px 4px #42191f35);
+}
+.wraps-intro .lettuce-one{left:16%;top:0}
+.wraps-intro .tomato-one{right:15%;top:auto;bottom:0}
+@media(max-width:700px){
+ .wraps-intro .filling-lettuce,.wraps-intro .filling-tomato{width:38px;height:38px}
+ .wraps-intro .lettuce-one{left:18%;top:2%}
+ .wraps-intro .tomato-one{right:18%;bottom:2%}
+ .wraps-intro .filling,#burgers .category-piece,.wraps-intro .title-ingredient,#burgers .title-ingredient{--lift:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ .wraps-intro .filling,.wraps-intro .title-ingredient,#burgers .category-piece,#burgers .title-ingredient{animation:none!important;transform:rotate(var(--rest-rotate,0deg))}
+}
+
+/* Continue the cream section's linework through its curved edge. */
+.homepage .home-flavour::after,.homepage .home-closing::after{
+ content:'';
+ position:absolute;
+ z-index:3;
+ left:0;
+ right:0;
+ top:-1px;
+ height:80px;
+ pointer-events:none;
+ background:url('client-brand/yellow-pattern.png') center/420px auto repeat;
+ opacity:.14;
+ -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 0H1440V34C1200 72 1050 72 900 38S650 4 480 42S200 78 0 34Z'/%3E%3C/svg%3E");
+ mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath fill='white' d='M0 0H1440V34C1200 72 1050 72 900 38S650 4 480 42S200 78 0 34Z'/%3E%3C/svg%3E");
+ -webkit-mask-size:100% 100%;
+ mask-size:100% 100%;
+}
+@media(max-width:700px){
+ .homepage .home-flavour::after,.homepage .home-closing::after{height:50px;background-size:280px auto}
+}

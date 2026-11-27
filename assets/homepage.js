@@ -2,28 +2,29 @@
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
  const stage=document.querySelector('.closing-stage');
  const foods=[...document.querySelectorAll('.closing-food')];
- const angles=[-14,13,-10,13];
+ const angles=[-9,8,-7,7];
  let active=false, flights=[];
  function buildFlights(){
   flights.forEach(flight=>flight.cancel());
   flights=[];
   foods.forEach((node,i)=>{
-   if(reduce.matches){node.style.opacity='1';node.style.transform=`rotate(${angles[i]}deg)`;return;}
-   node.style.opacity='';
+   node.style.opacity='1';
+   if(reduce.matches){node.style.transform=`rotate(${angles[i]}deg)`;return;}
    node.style.transform='';
-   // The ingredient rises out of the footer, hangs briefly, then falls below it again.
-   const distance=stage.clientHeight-node.offsetTop+node.offsetHeight+40;
-   const x=(i%2===0?-1:1)*Math.min(stage.clientWidth*.08,85);
-   const at=(shift,y,angle,scale)=>`translate3d(${shift}px,${y}px,0) rotate(${angle}deg) scale(${scale})`;
-   const flight=node.animate([
-    {offset:0,transform:at(x,distance,angles[i]-28,.72),opacity:0},
-    {offset:.18,transform:at(x*.45,distance*.48,angles[i]-12,.9),opacity:1},
-    {offset:.38,transform:at(0,0,angles[i],1),opacity:1},
-    {offset:.5,transform:at(-x*.12,-22,angles[i]+6,1.04),opacity:1},
-    {offset:.62,transform:at(0,0,angles[i],1),opacity:1},
-    {offset:.82,transform:at(x*.45,distance*.48,angles[i]+12,.9),opacity:1},
-    {offset:1,transform:at(x,distance,angles[i]+28,.72),opacity:0}
-   ],{duration:5300+i*300,delay:i*440,iterations:Infinity,fill:'both',easing:'ease-in-out'});
+   // Sample a parabola so each piece launches from below, slows at its apex,
+   // then accelerates back down instead of reversing an eased tween.
+   const startY=stage.clientHeight-node.offsetTop+node.offsetHeight+25;
+   const apex=stage.clientWidth<600?28:52;
+   const travel=startY+apex;
+   const side=i%2===0?-1:1;
+   const frames=Array.from({length:31},(_,step)=>{
+    const t=step/30;
+    const y=startY-4*travel*t*(1-t);
+    const x=side*24*Math.sin(Math.PI*t);
+    const angle=angles[i]+(t-.5)*42;
+    return {offset:t,transform:`translate3d(${x.toFixed(2)}px,${y.toFixed(2)}px,0) rotate(${angle.toFixed(2)}deg)`};
+   });
+   const flight=node.animate(frames,{duration:5700+i*270,delay:-i*1450,iterations:Infinity,fill:'both',easing:'linear'});
    if(!active)flight.pause();
    flights.push(flight);
   });
@@ -46,6 +47,7 @@
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
  const headings=[...document.querySelectorAll('.home-section-title')];
  headings.forEach(heading=>{
+  if(heading.classList.contains('belief-title')||heading.id==='flavour-title')return;
   heading.classList.add('scroll-heading');
   const walker=document.createTreeWalker(heading,NodeFilter.SHOW_TEXT);
   const nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);

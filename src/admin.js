@@ -35,6 +35,7 @@ function setSubcategory(category, value) {
   }));
   select.value = value && sections[category].some(([id]) => id === value) ? value : sections[category][0][0];
   $('#subcategory-help').textContent = category === 'burgers' ? 'Burgers appear in the burger menu.' : 'This controls the category menu where the product appears.';
+  form.querySelectorAll('[data-soda-only]').forEach(field => { field.hidden = category !== 'sodas'; });
 }
 form.elements.category.addEventListener('change', event => setSubcategory(event.target.value));
 setSubcategory(form.elements.category.value);
@@ -283,7 +284,8 @@ form.addEventListener('submit', async event => {
   const imageExtensions = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'image/gif': 'gif', 'image/avif': 'avif', 'image/bmp': 'bmp' };
   if (image && (!imageExtensions[image.type] || image.size > 5 * 1024 * 1024)) return status('Use a JPG, PNG, WebP, GIF, AVIF or BMP image up to 5 MB.');
   const offerPercent = f.offer_percent.value === '' ? null : Number(f.offer_percent.value);
-  const offerLabel = f.offer_label.value.trim() || null;
+  const isSoda = f.category.value === 'sodas';
+  const offerLabel = isSoda ? f.offer_label.value.trim() || null : null;
   if (offerPercent != null && (!Number.isFinite(offerPercent) || offerPercent <= 0 || offerPercent > 100)) return status('Discount must be greater than 0% and at most 100%.');
   if (offerLabel && offerPercent == null) return status('Enter a discount percentage before adding an offer badge.');
   if (offerPercent != null && !offersAvailable) return status('Offer database setup is pending. Run the new Supabase SQL migration first.');
@@ -298,8 +300,8 @@ form.addEventListener('submit', async event => {
   }
   const record = { name: f.name.value.trim(), slug: f.slug.value.trim(), category: f.category.value,
     subcategory: f.subcategory.value.trim() || null, ingredients: f.ingredients.value.trim(),
-    price: Number(f.price.value), price_medium: f.price_medium.value ? Number(f.price_medium.value) : null,
-    price_large: f.price_large.value ? Number(f.price_large.value) : null,
+    price: Number(f.price.value), price_medium: isSoda && f.price_medium.value ? Number(f.price_medium.value) : null,
+    price_large: isSoda && f.price_large.value ? Number(f.price_large.value) : null,
     is_active: f.is_active.checked, is_best_seller: f.is_best_seller.checked, image_path: path };
   if (offersAvailable) {
     record.offer_percent = offerPercent;

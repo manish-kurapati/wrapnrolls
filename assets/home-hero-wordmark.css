@@ -4,7 +4,7 @@
 .homepage .kinetic-hero .kinetic-stage{flex:1;min-height:0;height:auto;max-height:none;padding:0}
 .homepage .kinetic-hero .kinetic-brand{top:47%;left:-2%;right:-2%;padding:0;background:none;transform:translateY(-50%) rotate(-2deg)}
 .homepage .kinetic-hero .kinetic-brand::before,.homepage .kinetic-hero .brand-snacks{display:none}
-.homepage .kinetic-hero h1{font:400 clamp(90px,18vw,290px)/.82 Nority,sans-serif;letter-spacing:-.055em;white-space:normal;color:#ffefd2;text-shadow:6px 8px 0 #a92d1d35}
+.homepage .kinetic-hero h1{font:400 clamp(90px,18vw,290px)/.82 Climate Crisis,sans-serif;letter-spacing:-.055em;white-space:normal;color:#ffefd2;text-shadow:6px 8px 0 #a92d1d35}
 .homepage .kinetic-hero h1 span{display:block;white-space:nowrap;color:#ffefd2}
 .homepage .kinetic-hero h1 span+span{margin-top:.16em}
 .homepage .kinetic-hero .kinetic-bottom{bottom:clamp(16px,4vh,42px)}

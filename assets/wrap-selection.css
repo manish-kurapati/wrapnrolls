@@ -1,6 +1,6 @@
 /* Two category choices form the upper arms; customisation sits below. */
 .wrap-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 60px;max-width:660px;margin:0 auto 64px;padding:12px 0 0}
-.wrap-choice{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;padding:17px 24px;border:1px solid #ffefd2;border-radius:40px;background:#ffefd2;color:#791e0c;font:700 15px/1.4 'Roc Grotesk',Arial,sans-serif;cursor:pointer;box-shadow:0 4px 0 #9e3526;transition:background .2s,transform .2s}
+.wrap-choice{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;padding:17px 24px;border:1px solid #ffefd2;border-radius:40px;background:#ffefd2;color:#791e0c;font:700 15px/1.4 'Space Grotesk',Arial,sans-serif;cursor:pointer;box-shadow:0 4px 0 #9e3526;transition:background .2s,transform .2s}
 .wrap-choice:hover{background:#ffbf42;transform:translateY(-3px)}
 .wrap-choice[aria-pressed="true"]{background:#791e0c;color:#ffefd2;border-color:#791e0c}
 .wrap-choice:focus-visible,.wrap-choice-customise a:focus-visible{outline:3px solid #ffbf42;outline-offset:5px}
